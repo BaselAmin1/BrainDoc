@@ -27,7 +27,7 @@ void main() async {
   late String initialRoute;
 
   Bloc.observer = MyBlocObserver();
-  FirebaseAuth.instance.authStateChanges().listen(
+ await FirebaseAuth.instance.authStateChanges().listen(
     (user) {
       if (user == null) {
         initialRoute = Routes.onBoarding;
