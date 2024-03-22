@@ -14,7 +14,24 @@
   "privacyPolicy" : "Privacy Policy",
   "enterCode" :"Enter your 6 digit code numbers sent to ",
   "verifyYourPhoneNumber" : "Verify your phone number",
-  "verify" : "Verify"
-
+  "verify" : "Verify",
+  "personalData" : "Personal Data",
+  "pleaseEnterAFormToContinueTheRegister" : "Please enter a form to continue the register",
+  "fullName" : "Full Name",
+  "enterYourFullName" : "Enter your full name",
+  "nameCantBeEmpty" : "Name can't be empty",
+  "email" : "Email",
+  "enterYourFullEmail" : "Enter your full email",
+  "emailCantBeEmpty" : "Email can't be empty",
+  "emailIsNotValid" : "Email is not valid",
+  "gender" : "Gender",
+  "selectYourGender" : "Select your gender",
+  "genderCantBeEmpty" : "Gender can't be empty",
+  "male" : "Male",
+  "female" : "Female",
+  "birthDate" : "Birth Date",  
+  "selectYourBirthDate" : "Select your birth date",
+ "birthDateCantBeEmpty" : "Birth date can't be empty",
+ "submit" : "Submit"
 
 }

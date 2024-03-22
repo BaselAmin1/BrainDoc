@@ -14,7 +14,10 @@ class DoctorImageAndText extends StatelessWidget {
       children: [
         Stack(
           children: [
-            SvgPicture.asset(Assets.assetsImagesAppLogoLowOpacity),
+            SvgPicture.asset(
+              Assets.assetsImagesAppLogoLowOpacity,
+              height: 400.h,
+            ),
             Container(
               foregroundDecoration: BoxDecoration(
                 gradient: LinearGradient(
@@ -27,27 +30,35 @@ class DoctorImageAndText extends StatelessWidget {
                   stops: const [0.14, 0.4],
                 ),
               ),
-              child: Image.asset(Assets.assetsImagesOnboardingDoctor),
+              child: Image.asset(
+                Assets.assetsImagesOnboardingDoctor,
+                height: 544.h,
+              ),
             ),
             Positioned(
-              bottom: 10,
+              bottom: 0,
               left: 0,
               right: 0,
-              child: Text('bestDoctors'.tr(),
-                  textAlign: TextAlign.center, style: TextStyles.textStyle28),
+              child: Column(
+                children: [
+                  Text('bestDoctors'.tr(),
+                      textAlign: TextAlign.center,
+                      style: TextStyles.textStyle28),
+                  SizedBox(
+                    height: 0.h,
+                  ),
+                  Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 20.w),
+                    child: Text(
+                      'manageYourAppointment'.tr(),
+                      style: TextStyles.textStyle14.copyWith(height: 1.5),
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                ],
+              ),
             ),
           ],
-        ),
-        SizedBox(
-          height: 0.h,
-        ),
-        Padding(
-          padding: EdgeInsets.symmetric(horizontal: 20.w),
-          child: Text(
-            'manageYourAppointment'.tr(),
-            style: TextStyles.textStyle14.copyWith(height: 1.5),
-            textAlign: TextAlign.center,
-          ),
         ),
       ],
     );

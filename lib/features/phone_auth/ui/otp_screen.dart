@@ -1,6 +1,6 @@
 import 'package:BrainDoc/core/functions/easy_loading.dart';
 import 'package:BrainDoc/core/routing/routes.dart';
-import 'package:BrainDoc/features/phone_auth/business_logic/cubit/phone_auth/phone_auth_cubit.dart';
+import 'package:BrainDoc/features/phone_auth/business_logic/phone_auth_cubit/phone_auth_cubit.dart';
 import 'package:BrainDoc/features/phone_auth/ui/widgets/terms_and_conditions_widget.dart';
 import 'package:BrainDoc/features/phone_auth/ui/widgets/verify_button_widget.dart';
 import 'package:BrainDoc/features/phone_auth/ui/widgets/verify_intro_text_widget.dart';
@@ -29,6 +29,10 @@ class OtpScreen extends StatelessWidget {
         if (state is PhoneOTPVerified) {
           hideLoading();
           Navigator.of(context).pushReplacementNamed(Routes.mainLayout);
+        }
+        if (state is LoginNewUser) {
+          hideLoading();
+          Navigator.of(context).pushReplacementNamed(Routes.newUserScreen);
         }
 
         if (state is ErrorOccurred) {

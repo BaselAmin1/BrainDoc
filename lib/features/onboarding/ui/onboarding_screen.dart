@@ -10,6 +10,10 @@ class OnboardingScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      bottomNavigationBar: Container(
+          margin:
+              EdgeInsets.only(top: 0.h, bottom: 32.h, left: 16.2, right: 16.w),
+          child: const GetStartedButton()),
       body: SafeArea(
         child: Padding(
           padding: EdgeInsets.only(top: 10.h, bottom: 10.h),
@@ -18,8 +22,6 @@ class OnboardingScreen extends StatelessWidget {
               const AppLogoAndName(),
               SizedBox(height: 24.h),
               const DoctorImageAndText(),
-              const Spacer(),
-              const GetStartedButton(),
             ],
           ),
         ),

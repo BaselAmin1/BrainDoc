@@ -7,6 +7,7 @@ import 'package:BrainDoc/core/shared/localization_cubit/localization_cubit.dart'
 import 'package:BrainDoc/core/theming/themes.dart';
 import 'package:BrainDoc/firebase_options.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -23,7 +24,18 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+  late String initialRoute;
+
   Bloc.observer = MyBlocObserver();
+  FirebaseAuth.instance.authStateChanges().listen(
+    (user) {
+      if (user == null) {
+        initialRoute = Routes.onBoarding;
+      } else {
+        initialRoute = Routes.mainLayout;
+      }
+    },
+  );
 
   runApp(
     EasyLocalization(
@@ -37,6 +49,7 @@ void main() async {
       path: 'assets/languages',
       child: MyApp(
         appRouter: AppRouter(),
+        initialRoute: initialRoute,
       ),
     ),
   );
@@ -44,11 +57,9 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final AppRouter appRouter;
+  String? initialRoute;
 
-  const MyApp({
-    super.key,
-    required this.appRouter,
-  });
+   MyApp({super.key, required this.appRouter, required this.initialRoute});
 
   @override
   Widget build(BuildContext context) {
@@ -69,7 +80,7 @@ class MyApp extends StatelessWidget {
             locale: context.locale,
             theme: lightTheme,
             themeMode: ThemeMode.light,
-            initialRoute: Routes.onBoarding,
+            initialRoute: initialRoute,
             onGenerateRoute: appRouter.generateRoute,
             builder: EasyLoading.init(),
           ),

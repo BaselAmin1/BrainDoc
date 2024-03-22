@@ -1,4 +1,7 @@
+import 'package:BrainDoc/core/cache_helper/cache_helper.dart';
+import 'package:BrainDoc/core/cache_helper/cache_values.dart';
 import 'package:bloc/bloc.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:meta/meta.dart';
 
@@ -10,10 +13,13 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
   late String otpCode;
   PhoneAuthCubit() : super(PhoneAuthInitial());
 
+  FirebaseAuth auth = FirebaseAuth.instance;
+
+  FirebaseFirestore firestore = FirebaseFirestore.instance;
+
   Future<void> submitPhoneNumber() async {
     emit(Loading());
-
-    await FirebaseAuth.instance.verifyPhoneNumber(
+    await auth.verifyPhoneNumber(
       phoneNumber: '+2$phoneNumber',
       timeout: const Duration(seconds: 14),
       verificationCompleted: verificationCompleted,
@@ -52,8 +58,30 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
 
   Future<void> signIn(PhoneAuthCredential credential) async {
     try {
-      await FirebaseAuth.instance.signInWithCredential(credential);
-      emit(PhoneOTPVerified());
+      await FirebaseAuth.instance
+          .signInWithCredential(credential)
+          .then((value) async {
+        await CacheHelper.saveData(key: CacheKeys.uid, value: value.user!.uid);
+        checkNewUser();
+      });
+    } catch (error) {
+      emit(ErrorOccurred(errorMsg: error.toString()));
+    }
+  }
+
+  Future<void> checkNewUser() async {
+    try {
+      String uid = auth.currentUser!.uid;
+      DocumentSnapshot userSnapshot =
+          await firestore.collection('users').doc(uid).get();
+      if (!userSnapshot.exists) {
+        await firestore.collection('users').doc(uid).set({
+          'phone': phoneNumber,
+        });
+        emit(LoginNewUser());
+      } else {
+        emit(PhoneOTPVerified());
+      }
     } catch (error) {
       emit(ErrorOccurred(errorMsg: error.toString()));
     }

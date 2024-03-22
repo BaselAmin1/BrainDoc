@@ -1,6 +1,6 @@
 import 'package:BrainDoc/core/functions/easy_loading.dart';
 import 'package:BrainDoc/core/routing/routes.dart';
-import 'package:BrainDoc/features/phone_auth/business_logic/cubit/phone_auth/phone_auth_cubit.dart';
+import 'package:BrainDoc/features/phone_auth/business_logic/phone_auth_cubit/phone_auth_cubit.dart';
 import 'package:BrainDoc/features/phone_auth/ui/widgets/auth_button_widget.dart';
 import 'package:BrainDoc/features/phone_auth/ui/widgets/login_intro_text_widget.dart';
 import 'package:BrainDoc/features/phone_auth/ui/widgets/phone_form_field_widget.dart';
