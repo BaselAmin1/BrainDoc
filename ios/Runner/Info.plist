@@ -22,6 +22,15 @@
 	<string>$(FLUTTER_BUILD_NAME)</string>
 	<key>CFBundleSignature</key>
 	<string>????</string>
+	<key>NSCameraUsageDescription</key>
+	<string>BrainDoc requires access to the camera so you can take photos to show your profile picture.</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Used to capture audio for the image picker plugin.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>BrainDoc requires access to the photo library to select and display photos for your profile picture.</string>
+	<key>UIApplicationSupportsIndirectInputEvents</key>
+	<true/>
+
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>

@@ -32,6 +32,13 @@
   "birthDate" : "Birth Date",  
   "selectYourBirthDate" : "Select your birth date",
  "birthDateCantBeEmpty" : "Birth date can't be empty",
- "submit" : "Submit"
+ "submit" : "Submit",
+ "profileUpdateSuccessfully" : "Profile update successfully",
+ "profile" : "Profile",
+ "appointments" : "Appointments",
+ "editProfile" : "Edit Profile",
+ "changeLanguage" : "Change Language",
+ "logout" : "Logout",
+ "privacyAndPolicy" : "Privacy and Policy"
 
 }

@@ -34,7 +34,7 @@ abstract class TextStyles {
   );
   static const textStyle24 = TextStyle(
     fontSize: 24,
-    fontWeight: FontWeight.w900,
+    fontWeight: FontWeight.w700,
     color: AppColors.textColor,
     letterSpacing: 1.2,
   );

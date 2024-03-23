@@ -24,10 +24,10 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  late String initialRoute;
+  String initialRoute = Routes.onBoarding;
 
   Bloc.observer = MyBlocObserver();
- await FirebaseAuth.instance.authStateChanges().listen(
+  FirebaseAuth.instance.authStateChanges().listen(
     (user) {
       if (user == null) {
         initialRoute = Routes.onBoarding;
@@ -59,7 +59,7 @@ class MyApp extends StatelessWidget {
   final AppRouter appRouter;
   String? initialRoute;
 
-   MyApp({super.key, required this.appRouter, required this.initialRoute});
+  MyApp({super.key, required this.appRouter, required this.initialRoute});
 
   @override
   Widget build(BuildContext context) {

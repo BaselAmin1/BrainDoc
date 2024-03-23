@@ -29,6 +29,7 @@ class NewUserCubit extends Cubit<NewUserState> {
               fullName: fullNameController.text,
               email: emailController.text,
               gender: genderSelectedValue!,
+              image: '',
               birthDate: birthDate!,
             ).toJson(),
           );

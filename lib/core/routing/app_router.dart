@@ -8,6 +8,8 @@ import 'package:BrainDoc/features/onboarding/ui/onboarding_screen.dart';
 import 'package:BrainDoc/features/phone_auth/business_logic/phone_auth_cubit/phone_auth_cubit.dart';
 import 'package:BrainDoc/features/phone_auth/ui/login_screen.dart';
 import 'package:BrainDoc/features/phone_auth/ui/otp_screen.dart';
+import 'package:BrainDoc/features/profile/business_logic/profile_cubit/profile_cubit.dart';
+import 'package:BrainDoc/features/profile/ui/profile_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -93,10 +95,9 @@ class AppRouter {
         child: Text('test'),
       ),
     ),
-    const Scaffold(
-      body: Center(
-        child: Text('test'),
-      ),
+    BlocProvider(
+      create: (context) => getIt<ProfileCubit>()..getUserProfileData(),
+      child: const ProfileScreen(),
     ),
   ];
 }
