@@ -6,7 +6,6 @@
 // tree, read text, and verify that the values of widget properties are correct.
 
 import 'package:BrainDoc/core/routing/app_router.dart';
-import 'package:BrainDoc/core/routing/routes.dart';
 import 'package:BrainDoc/main.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
@@ -16,7 +15,6 @@ void main() {
     // Build our app and trigger a frame.
     tester.pumpWidget(MyApp(
       appRouter: AppRouter(),
-      initialRoute: Routes.onBoarding,
     ));
 
     // Verify that our counter starts at 0.

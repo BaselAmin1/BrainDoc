@@ -68,7 +68,6 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future updateUserProfile(Map<String, dynamic> newData) async {
     try {
       emit(UpdateUserLoadingState());
-
       print(uid);
       await firestore
           .collection('users')

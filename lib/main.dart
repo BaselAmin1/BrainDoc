@@ -1,4 +1,3 @@
-import 'package:BrainDoc/core/bloc_observer.dart';
 import 'package:BrainDoc/core/cache_helper/cache_helper.dart';
 import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/core/routing/app_router.dart';
@@ -24,18 +23,6 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
-  String initialRoute = Routes.onBoarding;
-
-  Bloc.observer = MyBlocObserver();
-  FirebaseAuth.instance.authStateChanges().listen(
-    (user) {
-      if (user == null) {
-        initialRoute = Routes.onBoarding;
-      } else {
-        initialRoute = Routes.mainLayout;
-      }
-    },
-  );
 
   runApp(
     EasyLocalization(
@@ -49,7 +36,6 @@ void main() async {
       path: 'assets/languages',
       child: MyApp(
         appRouter: AppRouter(),
-        initialRoute: initialRoute,
       ),
     ),
   );
@@ -57,9 +43,8 @@ void main() async {
 
 class MyApp extends StatelessWidget {
   final AppRouter appRouter;
-  String? initialRoute;
 
-  MyApp({super.key, required this.appRouter, required this.initialRoute});
+  const MyApp({super.key, required this.appRouter});
 
   @override
   Widget build(BuildContext context) {
@@ -72,17 +57,30 @@ class MyApp extends StatelessWidget {
           value: const SystemUiOverlayStyle(
             statusBarBrightness: Brightness.light,
           ),
-          child: MaterialApp(
-            title: 'egyptChemicals'.tr(),
-            debugShowCheckedModeBanner: false,
-            localizationsDelegates: context.localizationDelegates,
-            supportedLocales: context.supportedLocales,
-            locale: context.locale,
-            theme: lightTheme,
-            themeMode: ThemeMode.light,
-            initialRoute: initialRoute,
-            onGenerateRoute: appRouter.generateRoute,
-            builder: EasyLoading.init(),
+          child: FutureBuilder<User?>(
+            future: FirebaseAuth.instance.authStateChanges().first,
+            builder: (context, snapshot) {
+              if (snapshot.connectionState == ConnectionState.waiting) {
+                // Return a loading indicator or placeholder while waiting
+                return const CircularProgressIndicator(); // Example
+              } else {
+                final initialRoute = snapshot.data == null
+                    ? Routes.onBoarding
+                    : Routes.mainLayout;
+                return MaterialApp(
+                  title: 'egyptChemicals'.tr(),
+                  debugShowCheckedModeBanner: false,
+                  localizationsDelegates: context.localizationDelegates,
+                  supportedLocales: context.supportedLocales,
+                  locale: context.locale,
+                  theme: lightTheme,
+                  themeMode: ThemeMode.light,
+                  initialRoute: initialRoute,
+                  onGenerateRoute: appRouter.generateRoute,
+                  builder: EasyLoading.init(),
+                );
+              }
+            },
           ),
         ),
       ),

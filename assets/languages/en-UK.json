@@ -42,6 +42,16 @@
  "privacyAndPolicy" : "Privacy and Policy",
  "areYouSureYouWantToLogout"  : "Are you sure you want to logout?",
  "yes" : "Yes",
-  "no" : "No"
+ "no" : "No",
+ "hello" : "Hello!",
+ "mayYouAlwaysInAGoodCondition" : "May you always in a good condition",
+ "fastQuestions" : "Fast Questions",
+ "frequencyQuestionsAboutBrainTumor" : "Frequency questions about brain tumor",
+ "scanMRI" : "Scan MRI",
+ "scanYourMRIToGetFastResult" : "Scan your MRI to get fast result",
+ "browseDoctors" : "Browse Doctors",
+ "price" : "Price:",
+ "seeAll" : "See All"
+
 
 }
