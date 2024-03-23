@@ -39,6 +39,9 @@
  "editProfile" : "Edit Profile",
  "changeLanguage" : "Change Language",
  "logout" : "Logout",
- "privacyAndPolicy" : "Privacy and Policy"
+ "privacyAndPolicy" : "Privacy and Policy",
+ "areYouSureYouWantToLogout"  : "Are you sure you want to logout?",
+ "yes" : "Yes",
+  "no" : "No"
 
 }

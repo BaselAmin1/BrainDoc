@@ -9,7 +9,9 @@ import 'package:BrainDoc/features/phone_auth/business_logic/phone_auth_cubit/pho
 import 'package:BrainDoc/features/phone_auth/ui/login_screen.dart';
 import 'package:BrainDoc/features/phone_auth/ui/otp_screen.dart';
 import 'package:BrainDoc/features/profile/business_logic/profile_cubit/profile_cubit.dart';
+import 'package:BrainDoc/features/profile/ui/edit_profile_screen.dart';
 import 'package:BrainDoc/features/profile/ui/profile_screen.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -72,6 +74,20 @@ class AppRouter {
           child: BlocProvider(
             create: (context) => getIt<MainLayoutCubit>(),
             child: MainLayoutScreen(),
+          ),
+        );
+      case Routes.editProfileScreen:
+        var user = arguments as DocumentSnapshot;
+        return PageTransition(
+          type: PageTransitionType.fade,
+          duration: const Duration(milliseconds: 200),
+          alignment: Alignment.center,
+          settings: settings,
+          child: BlocProvider(
+            create: (context) => getIt<ProfileCubit>(),
+            child: EditProfileScreen(
+              user: user,
+            ),
           ),
         );
       default:

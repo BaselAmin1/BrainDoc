@@ -4,6 +4,7 @@ class Routes {
     static const String otpScreen = '/otpScreen';
     static const String newUserScreen = '/newUserScreen';
   static const String mainLayout = '/mainLayout';
-  static const String scannedTasksScreen = '/scannedTasksScreen';
-  static const String surveyTemplateScreen = '/surveyTemplateScreen';
+
+  static const String editProfileScreen = '/editProfileScreen';
+
 }

@@ -5,6 +5,7 @@ import 'package:BrainDoc/core/cache_helper/cache_values.dart';
 import 'package:BrainDoc/core/helpers/extensions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
@@ -22,14 +23,39 @@ class ProfileCubit extends Cubit<ProfileState> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   Reference ref = FirebaseStorage.instance.ref();
   var uid = CacheHelper.getData(key: CacheKeys.uid);
+  final TextEditingController fullNameController = TextEditingController();
+  final TextEditingController emailController = TextEditingController();
+  final List<String> genderItems = [
+    'male'.tr(),
+    'female'.tr(),
+  ];
+  String? genderSelectedValue;
+  DateTime? birthDate;
   String? _imageUrl;
+
+  DateTime formatDate(user) {
+    String dateString = user!['birthDate'];
+    List<String> dateParts = dateString.split('-');
+
+    if (dateParts.length == 3) {
+      int year = int.tryParse(dateParts[0]) ?? 0;
+      int month = int.tryParse(dateParts[1]) ?? 0;
+      int day = int.tryParse(dateParts[2]) ?? 0;
+
+      birthDate = DateTime(year, month, day);
+    }
+    return birthDate!;
+  }
+
   Future getUserProfileData() async {
     try {
       DocumentSnapshot snapshot =
           await firestore.collection('users').doc(uid).get();
 
       if (snapshot.exists) {
-        emit(ProfileLoaded(snapshot));
+        emit(ProfileLoaded(
+          snapshot,
+        ));
       } else {
         throw Exception('User profile not found');
       }
@@ -48,7 +74,7 @@ class ProfileCubit extends Cubit<ProfileState> {
           .collection('users')
           .doc(uid)
           .update(newData); // Use update method instead of set with merge
-      getUserProfileData();
+
       emit(UpdateUserSuccessState());
     } catch (e) {
       print('Error updating user profile: $e');

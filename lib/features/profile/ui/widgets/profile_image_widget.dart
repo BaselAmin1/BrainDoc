@@ -10,8 +10,10 @@ class ProfileImageWidget extends StatelessWidget {
   ProfileImageWidget({
     super.key,
     required this.user,
+    required this.isEdit,
   });
   DocumentSnapshot? user;
+  bool isEdit;
 
   @override
   Widget build(BuildContext context) {
@@ -50,7 +52,7 @@ class ProfileImageWidget extends StatelessWidget {
                         fit: BoxFit.cover,
                       ),
               ),
-              Positioned(
+            isEdit?  Positioned(
                 right: 10,
                 left: 130,
                 top: 120,
@@ -78,7 +80,7 @@ class ProfileImageWidget extends StatelessWidget {
                     },
                   ),
                 ),
-              ),
+              ):SizedBox(),
             ],
           ),
         ),
