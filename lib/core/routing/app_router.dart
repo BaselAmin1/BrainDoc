@@ -1,5 +1,6 @@
 import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/core/routing/routes.dart';
+import 'package:BrainDoc/features/home/business_logic/home_cubit/home_cubit.dart';
 import 'package:BrainDoc/features/home/ui/home_screen.dart';
 import 'package:BrainDoc/features/main_layout/business_logic/main_layout_cubit/main_layout_cubit.dart';
 import 'package:BrainDoc/features/main_layout/presentation/ui/main_layout_screen.dart';
@@ -107,7 +108,12 @@ class AppRouter {
   }
 
   List screens = [
-     HomeScreen(),
+    BlocProvider(
+      create: (context) => getIt<HomeCubit>()
+        ..getDoctors()
+        ..getBanners(),
+      child: const HomeScreen(),
+    ),
     BlocProvider(
       create: (context) => getIt<ProfileCubit>()..getUserProfileData(),
       child: const ProfileScreen(),

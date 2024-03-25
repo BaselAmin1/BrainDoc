@@ -1,3 +1,4 @@
+import 'package:BrainDoc/core/bloc_observer.dart';
 import 'package:BrainDoc/core/cache_helper/cache_helper.dart';
 import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/core/routing/app_router.dart';
@@ -20,6 +21,7 @@ void main() async {
   await setupGetIt();
   await EasyLocalization.ensureInitialized();
   await CacheHelper.init();
+  Bloc.observer = MyBlocObserver();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
