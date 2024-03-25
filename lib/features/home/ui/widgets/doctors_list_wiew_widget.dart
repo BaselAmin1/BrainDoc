@@ -1,8 +1,9 @@
+import 'package:BrainDoc/core/helpers/extensions.dart';
+import 'package:BrainDoc/core/routing/routes.dart';
 import 'package:BrainDoc/core/theming/colors.dart';
 import 'package:BrainDoc/core/theming/text_styles.dart';
 import 'package:BrainDoc/features/home/business_logic/home_cubit/home_cubit.dart';
 import 'package:BrainDoc/features/home/ui/widgets/doctor_list_view_item_widget.dart';
-import 'package:cached_network_image/cached_network_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -20,27 +21,32 @@ class DoctorsListViewWidget extends StatelessWidget {
         // TODO: implement listener
       },
       builder: (context, state) {
-        return Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Row(
-              children: [
-                Text('browseDoctors'.tr(), style: TextStyles.textStyle22),
-                const Spacer(),
-                TextButton(
-                  onPressed: () {},
-                  child: Text(
-                    'seeAll'.tr(),
-                    style: TextStyles.textStyle14.copyWith(
-                      color: AppColors.primaryColor,
-                    ),
+        return state is GetDoctorsSuccess
+            ? Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                mainAxisAlignment: MainAxisAlignment.start,
+                children: [
+                  Row(
+                    children: [
+                      Text('browseDoctors'.tr(), style: TextStyles.textStyle22),
+                      const Spacer(),
+                      TextButton(
+                        onPressed: () {
+                          context.pushNamed(
+                            Routes.allDoctorsScreen,
+                            arguments: state.doctors,
+                          );
+                        },
+                        child: Text(
+                          'seeAll'.tr(),
+                          style: TextStyles.textStyle14.copyWith(
+                            color: AppColors.primaryColor,
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-              ],
-            ),
-            state is GetDoctorsSuccess
-                ? SizedBox(
+                  SizedBox(
                     height: 250.h,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
@@ -51,13 +57,12 @@ class DoctorsListViewWidget extends StatelessWidget {
                         );
                       },
                     ),
-                  )
-                : const SizedBox(),
-            SizedBox(height: 4.h),
-          ],
-        );
+                  ),
+                  SizedBox(height: 4.h),
+                ],
+              )
+            : const SizedBox();
       },
     );
   }
 }
-

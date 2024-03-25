@@ -51,7 +51,8 @@
  "scanYourMRIToGetFastResult" : "Scan your MRI to get fast result",
  "browseDoctors" : "Browse Doctors",
  "price" : "Price:",
- "seeAll" : "See All"
+ "seeAll" : "See All",
+ "allDoctors" : "All Doctors"
 
 
 }
