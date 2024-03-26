@@ -1,5 +1,4 @@
 import 'package:BrainDoc/core/bloc_observer.dart';
-import 'package:BrainDoc/core/cache_helper/cache_helper.dart';
 import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/core/routing/app_router.dart';
 import 'package:BrainDoc/core/routing/routes.dart';
@@ -20,7 +19,7 @@ void main() async {
 
   await setupGetIt();
   await EasyLocalization.ensureInitialized();
-  await CacheHelper.init();
+
   Bloc.observer = MyBlocObserver();
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
@@ -59,30 +58,19 @@ class MyApp extends StatelessWidget {
           value: const SystemUiOverlayStyle(
             statusBarBrightness: Brightness.light,
           ),
-          child: FutureBuilder<User?>(
-            future: FirebaseAuth.instance.authStateChanges().first,
-            builder: (context, snapshot) {
-              if (snapshot.connectionState == ConnectionState.waiting) {
-                // Return a loading indicator or placeholder while waiting
-                return const CircularProgressIndicator(); // Example
-              } else {
-                final initialRoute = snapshot.data == null
-                    ? Routes.onBoarding
-                    : Routes.mainLayout;
-                return MaterialApp(
-                  title: 'egyptChemicals'.tr(),
-                  debugShowCheckedModeBanner: false,
-                  localizationsDelegates: context.localizationDelegates,
-                  supportedLocales: context.supportedLocales,
-                  locale: context.locale,
-                  theme: lightTheme,
-                  themeMode: ThemeMode.light,
-                  initialRoute: initialRoute,
-                  onGenerateRoute: appRouter.generateRoute,
-                  builder: EasyLoading.init(),
-                );
-              }
-            },
+          child: MaterialApp(
+            title: 'egyptChemicals'.tr(),
+            debugShowCheckedModeBanner: false,
+            localizationsDelegates: context.localizationDelegates,
+            supportedLocales: context.supportedLocales,
+            locale: context.locale,
+            theme: lightTheme,
+            themeMode: ThemeMode.light,
+            initialRoute: FirebaseAuth.instance.currentUser != null
+                ? Routes.mainLayout
+                : Routes.onBoarding,
+            onGenerateRoute: appRouter.generateRoute,
+            builder: EasyLoading.init(),
           ),
         ),
       ),

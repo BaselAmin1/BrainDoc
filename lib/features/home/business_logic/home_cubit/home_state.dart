@@ -1,51 +1,38 @@
 part of 'home_cubit.dart';
 
-sealed class HomeState extends Equatable {
-  const HomeState();
-
-  @override
-  List<Object> get props => [];
+enum HomeStatus {
+  initial,
+  loading,
+  loaded,
+  error,
 }
 
-final class HomeInitial extends HomeState {}
+class HomeState extends Equatable {
+  final HomeStatus status;
+  final List<DocumentSnapshot>? doctors;
+  final List<DocumentSnapshot>? banners;
 
+  const HomeState({
+    required this.status,
+    this.doctors,
+    this.banners,
+  });
 
-final class GetDoctorsLoading extends HomeState {}
+  static HomeState initial() => const HomeState(
+        status: HomeStatus.initial,
+      );
 
-final class GetDoctorsSuccess extends HomeState {
-  final List<DocumentSnapshot> doctors;
-
-  const GetDoctorsSuccess(this.doctors);
-
-  @override
-  List<Object> get props => [doctors];
-}
-
-final class GetDoctorsFailure extends HomeState {
-  final String errorMessage;
-
-  const GetDoctorsFailure(this.errorMessage);
-
-  @override
-  List<Object> get props => [errorMessage];
-}
-
-final class GetBannersLoading extends HomeState {}
-
-final class GetBannersSuccess extends HomeState {
-  final List<DocumentSnapshot> banners;
-
-  const GetBannersSuccess(this.banners);
+  HomeState copyWith({
+    HomeStatus? status,
+    List<DocumentSnapshot>? doctors,
+    List<DocumentSnapshot>? banners,
+  }) =>
+      HomeState(
+        status: status ?? this.status,
+        doctors: doctors ?? this.doctors,
+        banners: banners ?? this.banners,
+      );
 
   @override
-  List<Object> get props => [banners];
-}
-
-final class GetBannersFailure extends HomeState {
-  final String errorMessage;
-
-  const GetBannersFailure(this.errorMessage);
-
-  @override
-  List<Object> get props => [errorMessage];
+  List<Object?> get props => [status, doctors, banners];
 }

@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:BrainDoc/core/cache_helper/cache_helper.dart';
 import 'package:BrainDoc/core/cache_helper/cache_values.dart';
+import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/core/helpers/extensions.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -22,7 +23,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   Reference ref = FirebaseStorage.instance.ref();
-  var uid = CacheHelper.getData(key: CacheKeys.uid);
+  var uid = getIt<CacheHelper>().getData(key: CacheKeys.uid);
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final List<String> genderItems = [

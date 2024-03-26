@@ -5,28 +5,28 @@ import 'package:equatable/equatable.dart';
 part 'home_state.dart';
 
 class HomeCubit extends Cubit<HomeState> {
-  HomeCubit() : super(HomeInitial());
+  HomeCubit() : super(const HomeState(status: HomeStatus.initial));
 
   Future getDoctors() async {
     try {
-      emit(GetDoctorsLoading());
+      emit(const HomeState(status: HomeStatus.loading));
 
       final querySnapshot =
           await FirebaseFirestore.instance.collection('doctors').get();
-      emit(GetDoctorsSuccess(querySnapshot.docs));
+      emit(HomeState(status: HomeStatus.loaded, doctors: querySnapshot.docs));
     } catch (e) {
-      emit(GetDoctorsFailure(e.toString()));
+      emit(const HomeState(status: HomeStatus.error));
     }
   }
-    Future getBanners() async {
-    try {
-      emit(GetBannersLoading());
 
+  Future getBanners() async {
+    try {
+      emit(const HomeState(status: HomeStatus.loading));
       final querySnapshot =
           await FirebaseFirestore.instance.collection('banners').get();
-      emit(GetBannersSuccess(querySnapshot.docs));
+      emit(HomeState(status: HomeStatus.loaded, banners: querySnapshot.docs));
     } catch (e) {
-      emit(GetBannersFailure(e.toString()));
+      emit(const HomeState(status: HomeStatus.error));
     }
   }
 }

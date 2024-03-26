@@ -1,5 +1,6 @@
 import 'package:BrainDoc/core/cache_helper/cache_helper.dart';
 import 'package:BrainDoc/core/cache_helper/cache_values.dart';
+import 'package:BrainDoc/core/di.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -61,7 +62,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
       await FirebaseAuth.instance
           .signInWithCredential(credential)
           .then((value) async {
-        await CacheHelper.saveData(key: CacheKeys.uid, value: value.user!.uid);
+        await getIt<CacheHelper>().saveData(key: CacheKeys.uid, value: value.user!.uid);
         checkNewUser();
       });
     } catch (error) {

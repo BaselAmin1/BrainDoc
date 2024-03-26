@@ -1,4 +1,5 @@
 import 'package:BrainDoc/core/cache_helper/cache_helper.dart';
+import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/core/helpers/extensions.dart';
 import 'package:BrainDoc/core/routing/routes.dart';
 import 'package:BrainDoc/core/theming/text_styles.dart';
@@ -110,7 +111,7 @@ class ProfileButtonsWidget extends StatelessWidget {
                       TextButton(
                         onPressed: () {
                           FirebaseAuth.instance.signOut();
-                          CacheHelper.clearAllData();
+                          getIt<CacheHelper>().clearAllData();
                           Navigator.pushReplacementNamed(
                             context,
                             Routes.loginScreen,

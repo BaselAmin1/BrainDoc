@@ -1,39 +1,33 @@
+import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
 import 'cache_values.dart';
 
 class CacheHelper {
-  static late SharedPreferences sharedPreferences;
+  late SharedPreferences sharedPreferences;
 
-  static init() async {
-    sharedPreferences = await SharedPreferences.getInstance();
-  }
+  CacheHelper(this.sharedPreferences);
 
-  static dynamic getData({
+  dynamic getData({
     required String key,
   }) {
     return sharedPreferences.get(key);
   }
 
-  static bool isEnglish() => getCurrentLanguage() == "en";
+  bool isEnglish() => getCurrentLanguage() == "en";
 
-  static void changeLanguageToEn() async {
-    await CacheHelper.saveData(key: CacheKeys.currentLanguage, value: "ltr");
+  void changeLanguageToEn() async {
+    await saveData(key: CacheKeys.currentLanguage, value: "ltr");
   }
 
-  static String getCurrentLanguage() {
-    // print(CacheHelper.getData( key: CacheKeys.currentLanguage,));
-    return CacheHelper.getData(
-          key: CacheKeys.currentLanguage,
-        ) ??
-        "ltr";
+  String getCurrentLanguage() {
+    return getData(key: CacheKeys.currentLanguage) ?? "ltr";
   }
 
-  static void changeLanguageToAr() async {
-    await CacheHelper.saveData(key: CacheKeys.currentLanguage, value: "rtl");
+  void changeLanguageToAr() async {
+    await saveData(key: CacheKeys.currentLanguage, value: "rtl");
   }
 
-  static Future<bool> saveData({
+  Future<bool> saveData({
     required String key,
     required dynamic value,
   }) async {
@@ -44,13 +38,15 @@ class CacheHelper {
     return await sharedPreferences.setDouble(key, value);
   }
 
-  static Future<bool> removeData({
+  Future<bool> removeData({
     required String key,
   }) async {
     return await sharedPreferences.remove(key);
   }
 
-  static Future<bool> clearAllData() async {
+  Future<bool> clearAllData() async {
     return await sharedPreferences.clear();
   }
 }
+
+

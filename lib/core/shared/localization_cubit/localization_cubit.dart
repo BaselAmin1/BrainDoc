@@ -1,3 +1,4 @@
+import 'package:BrainDoc/core/di.dart';
 import 'package:bloc/bloc.dart';
 import 'package:BrainDoc/core/cache_helper/cache_helper.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -19,8 +20,8 @@ class LocalizationCubit extends Cubit<LocalizationState> {
 
     await localization.setLocale(Locale(lang, country));
     lang == 'ar'
-        ? CacheHelper.changeLanguageToAr()
-        : CacheHelper.changeLanguageToEn();
+        ? getIt<CacheHelper>().changeLanguageToAr()
+        : getIt<CacheHelper>().changeLanguageToEn();
     Future.delayed(
       const Duration(seconds: 3),
       () {
