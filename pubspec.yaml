@@ -19,6 +19,7 @@ dependencies:
   equatable: ^2.0.5
   firebase_auth: ^4.17.9
   firebase_core: ^2.27.1
+  firebase_messaging: ^14.7.21
   firebase_storage: ^11.6.10
   flutter:
     sdk: flutter

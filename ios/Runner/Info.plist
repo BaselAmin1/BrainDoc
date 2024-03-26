@@ -28,6 +28,8 @@
 	<string>Used to capture audio for the image picker plugin.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
 	<string>BrainDoc requires access to the photo library to select and display photos for your profile picture.</string>
+	<key>NSUserNotificationCenterUsageDescription</key>
+		<string>We use notifications to keep you informed about important updates, events, and information relevant to your use of this app. Your privacy is important to us, and we only send notifications that enhance your experience.</string>
 	<key>UIApplicationSupportsIndirectInputEvents</key>
 	<true/>
 

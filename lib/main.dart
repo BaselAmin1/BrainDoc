@@ -1,5 +1,6 @@
 import 'package:BrainDoc/core/bloc_observer.dart';
 import 'package:BrainDoc/core/di.dart';
+import 'package:BrainDoc/core/fcm.dart';
 import 'package:BrainDoc/core/routing/app_router.dart';
 import 'package:BrainDoc/core/routing/routes.dart';
 import 'package:BrainDoc/core/shared/localization_cubit/localization_cubit.dart';
@@ -24,6 +25,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
+ await PushNotificationService().initializeNotification();
 
   runApp(
     EasyLocalization(
