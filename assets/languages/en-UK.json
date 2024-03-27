@@ -52,7 +52,13 @@
  "browseDoctors" : "Browse Doctors",
  "price" : "Price:",
  "seeAll" : "See All",
- "allDoctors" : "All Doctors"
-
-
+ "allDoctors" : "All Doctors",
+ "doctorProfile" : "Doctor Profile",
+ "hospital" : "Hospital",
+ "clinic" : "Clinic",
+  "aboutDoctor" : "About Doctor",
+  "workLocation" : "Work Location",
+  "reviews" : "Reviews",
+  "bookNow" : "Book Now",
+  "egp" : "EGP"
 }

@@ -27,11 +27,13 @@ dependencies:
   flutter_easyloading: ^3.0.5
   flutter_launcher_icons: ^0.13.1
   flutter_native_splash: ^2.3.5
+  flutter_rating_bar: ^4.0.1
   flutter_screenutil: ^5.9.0
   flutter_svg: ^2.0.9
   fluttertoast: ^8.2.4
   font_awesome_flutter: ^10.6.0
   get_it: ^7.6.7
+  google_maps_flutter: ^2.6.0
   image_cropper: ^5.0.1
   image_picker: ^0.8.6+4
   page_transition: ^2.1.0

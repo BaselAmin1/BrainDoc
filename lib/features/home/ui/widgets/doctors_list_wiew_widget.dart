@@ -72,7 +72,7 @@ class DoctorsListViewWidget extends StatelessWidget {
                           highlightColor: Colors.grey[100]!,
                           child: Container(
                             margin: EdgeInsets.symmetric(horizontal: 8.w),
-                            width: 150.w,
+                            width: 160.w,
                             decoration: BoxDecoration(
                               color: Colors.grey,
                               borderRadius: BorderRadius.circular(8),

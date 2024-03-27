@@ -29,6 +29,10 @@ class Assets {
   /// assets/images/home_scan_image.svg.svg
   static const String assetsImagesHomeScanImageSvg = "assets/images/home_scan_image.svg.svg";
 
+  /// Assets for assetsImagesHospitalIcon
+  /// assets/images/hospital_icon.svg
+  static const String assetsImagesHospitalIcon = "assets/images/hospital_icon.svg";
+
   /// Assets for assetsImagesOnboardingDoctor
   /// assets/images/onboarding_doctor.png
   static const String assetsImagesOnboardingDoctor = "assets/images/onboarding_doctor.png";

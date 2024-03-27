@@ -1,5 +1,6 @@
 import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/core/routing/routes.dart';
+import 'package:BrainDoc/features/doctor_details/ui/doctor_details_screen.dart';
 import 'package:BrainDoc/features/home/business_logic/home_cubit/home_cubit.dart';
 import 'package:BrainDoc/features/home/ui/all_doctors_screen.dart';
 import 'package:BrainDoc/features/home/ui/home_screen.dart';
@@ -102,6 +103,17 @@ class AppRouter {
           settings: settings,
           child: AllDoctorsScreen(
             doctors: doctors,
+          ),
+        );
+      case Routes.doctorDetailsScreen:
+        var doctor = arguments as DocumentSnapshot;
+        return PageTransition(
+          type: PageTransitionType.fade,
+          duration: const Duration(milliseconds: 200),
+          alignment: Alignment.center,
+          settings: settings,
+          child: DoctorDetailsScreen(
+            doctor: doctor,
           ),
         );
       default:
