@@ -41,6 +41,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
   }
 
   void codeSent(String verificationId, int? resendToken) {
+    emit(Loading());
     print('codeSent');
     this.verificationId = verificationId;
     emit(PhoneNumberSubmitted());
@@ -62,7 +63,8 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
       await FirebaseAuth.instance
           .signInWithCredential(credential)
           .then((value) async {
-        await getIt<CacheHelper>().saveData(key: CacheKeys.uid, value: value.user!.uid);
+        await getIt<CacheHelper>()
+            .saveData(key: CacheKeys.uid, value: value.user!.uid);
         checkNewUser();
       });
     } catch (error) {

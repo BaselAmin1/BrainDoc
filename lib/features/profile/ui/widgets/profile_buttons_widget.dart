@@ -12,10 +12,9 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileButtonsWidget extends StatelessWidget {
-   ProfileButtonsWidget({super.key,
-    required this.user});
+  ProfileButtonsWidget({super.key, required this.user});
 
- DocumentSnapshot user;
+  DocumentSnapshot user;
   @override
   Widget build(BuildContext context) {
     return Column(
@@ -42,8 +41,8 @@ class ProfileButtonsWidget extends StatelessWidget {
           ),
           trailing: const Icon(Icons.arrow_forward_ios),
           onTap: () {
-            context.pushNamed(Routes.editProfileScreen,
-            arguments: user).then((value) => context.read<ProfileCubit>().getUserProfileData());
+            context.pushNamed(Routes.editProfileScreen, arguments: user).then(
+                (value) => context.read<ProfileCubit>().getUserProfileData());
           },
         ),
         Padding(

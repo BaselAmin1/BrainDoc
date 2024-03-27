@@ -1,4 +1,5 @@
 import 'package:BrainDoc/core/functions/easy_loading.dart';
+import 'package:BrainDoc/core/helpers/extensions.dart';
 import 'package:BrainDoc/core/theming/colors.dart';
 import 'package:BrainDoc/core/theming/text_styles.dart';
 import 'package:BrainDoc/features/profile/business_logic/profile_cubit/profile_cubit.dart';
@@ -36,6 +37,7 @@ class EditProfileScreen extends StatelessWidget {
           showSuccess(
             'profileUpdateSuccessfully'.tr(),
           );
+          context.pop();
         }
         if (state is PickImageSuccessState) {
           showLoading();
