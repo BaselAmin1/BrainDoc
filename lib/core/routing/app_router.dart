@@ -11,6 +11,8 @@ import 'package:BrainDoc/features/main_layout/presentation/ui/main_layout_screen
 import 'package:BrainDoc/features/new_user/business_logic/new_user_cubit/new_user_cubit.dart';
 import 'package:BrainDoc/features/new_user/ui/new_user_screen.dart';
 import 'package:BrainDoc/features/onboarding/ui/onboarding_screen.dart';
+import 'package:BrainDoc/features/payment/business_logic/appointment_cubit/appointment_cubit.dart';
+import 'package:BrainDoc/features/payment/data/models/appointment_model.dart';
 import 'package:BrainDoc/features/payment/ui/booking_success_screen.dart';
 import 'package:BrainDoc/features/payment/ui/payment_screen.dart';
 import 'package:BrainDoc/features/payment/ui/payment_summary_screen.dart';
@@ -22,6 +24,7 @@ import 'package:BrainDoc/features/profile/ui/edit_profile_screen.dart';
 import 'package:BrainDoc/features/profile/ui/profile_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -152,22 +155,45 @@ class AppRouter {
           ),
         );
       case Routes.paymentScreen:
-        var total = arguments as int;
+        var paymentSummaryModel = arguments as PaymentSummaryModel;
 
         return PageTransition(
           type: PageTransitionType.fade,
           duration: const Duration(milliseconds: 200),
           alignment: Alignment.center,
           settings: settings,
-          child: PaymentScreen(total: total),
+          child: PaymentScreen(
+            paymentSummaryModel: paymentSummaryModel,
+          ),
         );
       case Routes.bookingSuccessScreen:
+        var paymentSummaryModel = arguments as PaymentSummaryModel;
         return PageTransition(
           type: PageTransitionType.fade,
           duration: const Duration(milliseconds: 200),
           alignment: Alignment.center,
           settings: settings,
-          child:  BookingSuccessScreen(),
+          child: BlocProvider(
+            create: (context) => getIt<AppointmentCubit>()
+              ..makeAppointment(
+                appointmentModel: AppointmentModel(
+                  userName: FirebaseAuth.instance.currentUser!.displayName,
+                  userId: FirebaseAuth.instance.currentUser!.uid,
+                  doctorName: paymentSummaryModel.doctor['name'],
+                  doctorId: paymentSummaryModel.doctor.id,
+                  date: paymentSummaryModel.date,
+                  time: paymentSummaryModel.time,
+                  notes: paymentSummaryModel.notes,
+                  rating: null,
+                  review: null,
+                  isVisa: paymentSummaryModel.isVisa,
+                  totalPrice: paymentSummaryModel.doctor['price'],
+                ),
+              ),
+            child: BookingSuccessScreen(
+              paymentSummaryModel: paymentSummaryModel,
+            ),
+          ),
         );
       default:
         return PageTransition(
@@ -202,7 +228,12 @@ class PaymentSummaryModel {
   final DocumentSnapshot doctor;
   final String date;
   final String time;
-
+  bool isVisa;
+  String? notes;
   PaymentSummaryModel(
-      {required this.doctor, required this.date, required this.time});
+      {required this.doctor,
+      required this.date,
+      required this.time,
+      required this.isVisa,
+      this.notes});
 }

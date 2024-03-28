@@ -4,6 +4,7 @@ import 'package:BrainDoc/features/home/ui/widgets/doctors_list_wiew_widget.dart'
 import 'package:BrainDoc/features/home/ui/widgets/home_banners_widget.dart';
 import 'package:BrainDoc/features/home/ui/widgets/home_scan_and_freq_widget.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -31,7 +32,7 @@ class HomeScreen extends StatelessWidget {
                     ListTile(
                       contentPadding: const EdgeInsets.all(0),
                       title: Text(
-                        'hello'.tr(),
+                        '${'hello'.tr()} ${FirebaseAuth.instance.currentUser?.displayName?.split(" ")[0]}',
                         style: TextStyles.textStyle22,
                       ),
                       subtitle: Text(
@@ -40,7 +41,7 @@ class HomeScreen extends StatelessWidget {
                       ),
                     ),
                     const HomeScanAndFreqWidget(),
-                    DoctorsListViewWidget(),
+                    const DoctorsListViewWidget(),
                     const BannerWidget(),
                     SizedBox(height: 8.h),
                   ],

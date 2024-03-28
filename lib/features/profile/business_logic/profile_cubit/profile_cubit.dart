@@ -8,6 +8,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -70,6 +71,7 @@ class ProfileCubit extends Cubit<ProfileState> {
     try {
       emit(UpdateUserLoadingState());
       print(uid);
+
       await firestore
           .collection('users')
           .doc(uid)
@@ -104,6 +106,8 @@ class ProfileCubit extends Cubit<ProfileState> {
         updateUserProfile({
           'image': _imageUrl,
         });
+        await FirebaseAuth.instance.currentUser!.updatePhotoURL(_imageUrl);
+
         emit(UploadImageSuccessState());
       } else {
         throw Exception('Failed to upload image');

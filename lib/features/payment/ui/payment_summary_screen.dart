@@ -188,10 +188,22 @@ class _PaymentSummaryScreenState extends State<PaymentSummaryScreen> {
                 width: 150.w,
                 onPressed: () {
                   if (widget.isCredit) {
-                    context.pushNamed(Routes.paymentScreen,
-                        arguments: int.parse(
-                            widget.paymentSummaryModel.doctor['price']));
-                  } else {}
+                    context.pushNamed(
+                      Routes.paymentScreen,
+                      arguments: widget.paymentSummaryModel,
+                    );
+                  } else {
+                    context.pushNamed(
+                      Routes.bookingSuccessScreen,
+                      arguments: PaymentSummaryModel(
+                        doctor: widget.paymentSummaryModel.doctor,
+                        date: widget.paymentSummaryModel.date,
+                        time: widget.paymentSummaryModel.time,
+                        isVisa: false,
+                        notes: widget.paymentSummaryModel.notes,
+                      ),
+                    );
+                  }
                 },
                 text: widget.isCredit ? 'pay'.tr() : 'confirm'.tr(),
               ),

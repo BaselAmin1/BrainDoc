@@ -6,6 +6,7 @@ import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 part 'new_user_state.dart';
@@ -25,6 +26,10 @@ class NewUserCubit extends Cubit<NewUserState> {
 
   Future updateNewUserData() async {
     try {
+      await FirebaseAuth.instance.currentUser!
+          .updateDisplayName(fullNameController.text);
+
+
       await firestore.collection('users').doc(uid).update(
             SaveNewUserDataModel(
               fullName: fullNameController.text,

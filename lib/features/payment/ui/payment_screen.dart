@@ -1,4 +1,5 @@
 import 'package:BrainDoc/core/helpers/extensions.dart';
+import 'package:BrainDoc/core/routing/app_router.dart';
 import 'package:BrainDoc/core/routing/routes.dart';
 import 'package:BrainDoc/core/theming/text_styles.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -6,8 +7,8 @@ import 'package:flutter/material.dart';
 import 'package:my_fatoorah/my_fatoorah.dart';
 
 class PaymentScreen extends StatelessWidget {
-  PaymentScreen({super.key, required this.total});
-  int total;
+  PaymentScreen({super.key, required this.paymentSummaryModel});
+  PaymentSummaryModel paymentSummaryModel;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -22,8 +23,8 @@ class PaymentScreen extends StatelessWidget {
             if (response.status == PaymentStatus.Success) {
               context.pushReplacementNamed(
                 Routes.bookingSuccessScreen,
+                arguments: paymentSummaryModel,
               );
-             
             } else {
               print(response.status);
             }
@@ -33,7 +34,7 @@ class PaymentScreen extends StatelessWidget {
             successUrl: 'https://cdn-icons-png.flaticon.com/512/148/148767.png',
             errorUrl:
                 'https://www.nicepng.com/png/detail/135-1358116_error-png.png',
-            invoiceAmount: total.toDouble(),
+            invoiceAmount: double.parse(paymentSummaryModel.doctor['price']),
             language: context.locale.toString() == 'en_UK'
                 ? ApiLanguage.English
                 : ApiLanguage.Arabic,

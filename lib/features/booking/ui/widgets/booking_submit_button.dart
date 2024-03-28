@@ -40,6 +40,8 @@ class BookingSubmitButton extends StatelessWidget {
                     .selectedDayTimes[
                         context.read<BookingCubit>().selectedTimeIndex]
                     .time,
+                    isVisa: true,
+                    notes: context.read<BookingCubit>().notesController.text,
               ),
             );
           }
