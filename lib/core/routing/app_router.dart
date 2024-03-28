@@ -1,5 +1,7 @@
 import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/core/routing/routes.dart';
+import 'package:BrainDoc/features/booking/business_logic/booking_cubit/booking_cubit.dart';
+import 'package:BrainDoc/features/booking/ui/booking_screen.dart';
 import 'package:BrainDoc/features/doctor_details/ui/doctor_details_screen.dart';
 import 'package:BrainDoc/features/home/business_logic/home_cubit/home_cubit.dart';
 import 'package:BrainDoc/features/home/ui/all_doctors_screen.dart';
@@ -9,6 +11,9 @@ import 'package:BrainDoc/features/main_layout/presentation/ui/main_layout_screen
 import 'package:BrainDoc/features/new_user/business_logic/new_user_cubit/new_user_cubit.dart';
 import 'package:BrainDoc/features/new_user/ui/new_user_screen.dart';
 import 'package:BrainDoc/features/onboarding/ui/onboarding_screen.dart';
+import 'package:BrainDoc/features/payment/ui/booking_success_screen.dart';
+import 'package:BrainDoc/features/payment/ui/payment_screen.dart';
+import 'package:BrainDoc/features/payment/ui/payment_summary_screen.dart';
 import 'package:BrainDoc/features/phone_auth/business_logic/phone_auth_cubit/phone_auth_cubit.dart';
 import 'package:BrainDoc/features/phone_auth/ui/login_screen.dart';
 import 'package:BrainDoc/features/phone_auth/ui/otp_screen.dart';
@@ -16,6 +21,7 @@ import 'package:BrainDoc/features/profile/business_logic/profile_cubit/profile_c
 import 'package:BrainDoc/features/profile/ui/edit_profile_screen.dart';
 import 'package:BrainDoc/features/profile/ui/profile_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:page_transition/page_transition.dart';
@@ -116,6 +122,53 @@ class AppRouter {
             doctor: doctor,
           ),
         );
+      case Routes.bookingScreen:
+        var doctor = arguments as DocumentSnapshot;
+        return PageTransition(
+          type: PageTransitionType.fade,
+          duration: const Duration(milliseconds: 200),
+          alignment: Alignment.center,
+          settings: settings,
+          child: BlocProvider(
+            create: (context) => getIt<BookingCubit>()
+              ..onSelectDate(
+                  doctorDates: doctor['dates'],
+                  dayOfWeek: DateFormat('EEEE').format(DateTime.now())),
+            child: BookingScreen(
+              doctor: arguments,
+            ),
+          ),
+        );
+      case Routes.paymentSummaryScreen:
+        var paymentSummaryModel = arguments as PaymentSummaryModel;
+
+        return PageTransition(
+          type: PageTransitionType.fade,
+          duration: const Duration(milliseconds: 200),
+          alignment: Alignment.center,
+          settings: settings,
+          child: PaymentSummaryScreen(
+            paymentSummaryModel: paymentSummaryModel,
+          ),
+        );
+      case Routes.paymentScreen:
+        var total = arguments as int;
+
+        return PageTransition(
+          type: PageTransitionType.fade,
+          duration: const Duration(milliseconds: 200),
+          alignment: Alignment.center,
+          settings: settings,
+          child: PaymentScreen(total: total),
+        );
+      case Routes.bookingSuccessScreen:
+        return PageTransition(
+          type: PageTransitionType.fade,
+          duration: const Duration(milliseconds: 200),
+          alignment: Alignment.center,
+          settings: settings,
+          child:  BookingSuccessScreen(),
+        );
       default:
         return PageTransition(
           child: Scaffold(
@@ -143,4 +196,13 @@ class AppRouter {
       child: const ProfileScreen(),
     ),
   ];
+}
+
+class PaymentSummaryModel {
+  final DocumentSnapshot doctor;
+  final String date;
+  final String time;
+
+  PaymentSummaryModel(
+      {required this.doctor, required this.date, required this.time});
 }

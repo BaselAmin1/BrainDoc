@@ -1,9 +1,11 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <uses-permission android:name="android.permission.INTERNET" />
     <application
+    
         android:label="BrainDoc"
         android:name="${applicationName}"
         android:icon="@mipmap/launcher_icon">
+        android:usesCleartextTraffic="true"
         <meta-data
         android:name="com.google.android.geo.API_KEY"
         android:value="AIzaSyDqsOt7l2OalHpZ-RYcQT3teAdN3pjBOX4"/>

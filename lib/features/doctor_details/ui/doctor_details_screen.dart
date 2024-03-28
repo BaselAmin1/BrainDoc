@@ -86,7 +86,9 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
                 marker: _markers,
               ),
               DoctorReviewsWidget(widget: widget, rating: rating),
-              const DoctorBookNowButton(),
+              DoctorBookNowButton(
+                doctor: widget.doctor,
+              ),
             ],
           ),
         ),

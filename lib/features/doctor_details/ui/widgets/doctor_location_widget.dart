@@ -9,8 +9,8 @@ class DoctorLocationWidget extends StatelessWidget {
   DoctorLocationWidget({
     super.key,
     required this.widget,
-  required  this.mapController,
-  required  this.marker,
+    required this.mapController,
+    required this.marker,
   });
 
   final DoctorDetailsScreen widget;

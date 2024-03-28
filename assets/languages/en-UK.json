@@ -60,5 +60,26 @@
   "workLocation" : "Work Location",
   "reviews" : "Reviews",
   "bookNow" : "Book Now",
-  "egp" : "EGP"
+  "egp" : "EGP",
+  "makeAppointment" : "Make Appointment",
+  "selectYourVisitDataAndTime" : "Select your visit data and time",
+  "youCanChooseDataAAndTimeFromAvailableDoctorsSchedule" : "You can choose data and time from available doctor's schedule",
+  "selectedTime" : "Selected Time",
+  "selectedDate" : "Selected Date",
+  "yourNotes" : "Your Notes",
+  "writeYourNotes" : "Write your notes here",
+  "paymentSummary" : "Payment Summary",
+  "scheduleDate" : "Schedule Date",
+  "appointmentDate" : "Appointment Date",
+  "selectPaymentMethod" : "Select Payment Method",
+  "cash" : "Cash",
+  "creditCard" : "Credit Card",
+  "pay" : "Pay",
+  "total" : "Total",
+  "confirm" : "Confirm",
+  "pleaseSelectTime" : "Please select time",
+  "youHaveBookingSuccessfully" : "You have booking successfully",
+  "weHopeYouToGetBetterSoon" : "We hope you to get better soon",
+  "backToHome" : "Back to Home"
+
 }

@@ -41,6 +41,10 @@ class Assets {
   /// assets/images/profile.png
   static const String assetsImagesProfile = "assets/images/profile.png";
 
+  /// Assets for assetsImagesScheduleIcon
+  /// assets/images/schedule_icon.svg
+  static const String assetsImagesScheduleIcon = "assets/images/schedule_icon.svg";
+
   /// Assets for assetsImagesSplash
   /// assets/images/splash.png
   static const String assetsImagesSplash = "assets/images/splash.png";
@@ -48,5 +52,9 @@ class Assets {
   /// Assets for assetsImagesSplashAndroid12
   /// assets/images/splash_android12.png
   static const String assetsImagesSplashAndroid12 = "assets/images/splash_android12.png";
+
+  /// Assets for assetsImagesSuccessImage
+  /// assets/images/success_image.png
+  static const String assetsImagesSuccessImage = "assets/images/success_image.png";
 }
 

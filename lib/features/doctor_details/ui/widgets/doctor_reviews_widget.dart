@@ -1,15 +1,10 @@
-import 'package:BrainDoc/core/shared/widgets/custom_button.dart';
-import 'package:BrainDoc/core/theming/assets.dart';
 import 'package:BrainDoc/core/theming/text_styles.dart';
 import 'package:BrainDoc/features/doctor_details/ui/doctor_details_screen.dart';
 import 'package:cached_network_image/cached_network_image.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
-import 'package:flutter_svg/svg.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 
 class DoctorReviewsWidget extends StatelessWidget {
   const DoctorReviewsWidget({
@@ -25,8 +20,7 @@ class DoctorReviewsWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Card(
       child: Padding(
-        padding:
-            EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
+        padding: EdgeInsets.symmetric(horizontal: 16.w, vertical: 8.h),
         child: Row(
           children: [
             Expanded(
@@ -48,8 +42,7 @@ class DoctorReviewsWidget extends StatelessWidget {
                       return Column(
                         children: [
                           Row(
-                            crossAxisAlignment:
-                                CrossAxisAlignment.center,
+                            crossAxisAlignment: CrossAxisAlignment.center,
                             children: [
                               Container(
                                 width: 50.w,
@@ -57,18 +50,17 @@ class DoctorReviewsWidget extends StatelessWidget {
                                 clipBehavior: Clip.antiAlias,
                                 decoration: BoxDecoration(
                                   shape: BoxShape.rectangle,
-                                  borderRadius:
-                                      BorderRadius.circular(16.r),
-                                  color: const Color.fromARGB(
-                                      255, 193, 208, 255),
+                                  borderRadius: BorderRadius.circular(16.r),
+                                  color:
+                                      const Color.fromARGB(255, 193, 208, 255),
                                   border: Border.all(
                                     color: Colors.grey,
                                     width: 1.5,
                                   ),
                                 ),
                                 child: CachedNetworkImage(
-                                  imageUrl: widget.doctor['reviews']
-                                      [index]['patientImage'],
+                                  imageUrl: widget.doctor['reviews'][index]
+                                      ['patientImage'],
                                   fit: BoxFit.cover,
                                   width: 50.w,
                                   height: 50.w,
@@ -76,21 +68,18 @@ class DoctorReviewsWidget extends StatelessWidget {
                               ),
                               SizedBox(width: 12.w),
                               Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.center,
-                                crossAxisAlignment:
-                                    CrossAxisAlignment.start,
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.start,
                                 children: [
                                   Text(
                                     ' ' +
-                                        widget.doctor['reviews']
-                                            [index]['patientName'],
+                                        widget.doctor['reviews'][index]
+                                            ['patientName'],
                                     style: TextStyles.textStyle16,
                                   ),
                                   RatingBarIndicator(
                                     rating: rating!,
-                                    itemBuilder: (context, index) =>
-                                        const Icon(
+                                    itemBuilder: (context, index) => const Icon(
                                       Icons.star,
                                       color: Colors.amber,
                                     ),
@@ -100,31 +89,26 @@ class DoctorReviewsWidget extends StatelessWidget {
                                   ),
                                   Text(
                                     ' ' +
-                                        widget.doctor['reviews']
-                                            [index]['patientReview'],
+                                        widget.doctor['reviews'][index]
+                                            ['patientReview'],
                                     style: TextStyles.textStyle14,
                                   ),
                                 ],
                               ),
                               Expanded(
                                 child: Column(
-                                  mainAxisAlignment:
-                                      MainAxisAlignment.start,
-                                  crossAxisAlignment:
-                                      CrossAxisAlignment.end,
+                                  mainAxisAlignment: MainAxisAlignment.start,
+                                  crossAxisAlignment: CrossAxisAlignment.end,
                                   children: [
                                     Text(
-                                      widget.doctor['reviews'][index]
-                                          ['date'],
-                                      style: TextStyles.textStyle14
-                                          .copyWith(
+                                      widget.doctor['reviews'][index]['date'],
+                                      style: TextStyles.textStyle14.copyWith(
                                         color: Colors.grey,
                                       ),
                                     ),
                                     Text(
                                       '\n',
-                                      style: TextStyles.textStyle14
-                                          .copyWith(
+                                      style: TextStyles.textStyle14.copyWith(
                                         color: Colors.grey,
                                       ),
                                     ),
@@ -151,4 +135,3 @@ class DoctorReviewsWidget extends StatelessWidget {
     );
   }
 }
-
