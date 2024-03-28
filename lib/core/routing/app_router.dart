@@ -1,5 +1,7 @@
 import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/core/routing/routes.dart';
+import 'package:BrainDoc/features/appointments/business_logic/appointments_cubit/appointments_cubit.dart';
+import 'package:BrainDoc/features/appointments/ui/appointments_screen.dart';
 import 'package:BrainDoc/features/booking/business_logic/booking_cubit/booking_cubit.dart';
 import 'package:BrainDoc/features/booking/ui/booking_screen.dart';
 import 'package:BrainDoc/features/doctor_details/ui/doctor_details_screen.dart';
@@ -11,7 +13,7 @@ import 'package:BrainDoc/features/main_layout/presentation/ui/main_layout_screen
 import 'package:BrainDoc/features/new_user/business_logic/new_user_cubit/new_user_cubit.dart';
 import 'package:BrainDoc/features/new_user/ui/new_user_screen.dart';
 import 'package:BrainDoc/features/onboarding/ui/onboarding_screen.dart';
-import 'package:BrainDoc/features/payment/business_logic/appointment_cubit/appointment_cubit.dart';
+import 'package:BrainDoc/features/payment/business_logic/confirm_booking_cubit/confirm_booking_cubit.dart';
 import 'package:BrainDoc/features/payment/data/models/appointment_model.dart';
 import 'package:BrainDoc/features/payment/ui/booking_success_screen.dart';
 import 'package:BrainDoc/features/payment/ui/payment_screen.dart';
@@ -174,7 +176,7 @@ class AppRouter {
           alignment: Alignment.center,
           settings: settings,
           child: BlocProvider(
-            create: (context) => getIt<AppointmentCubit>()
+            create: (context) => getIt<ConfirmBookingCubit>()
               ..makeAppointment(
                 appointmentModel: AppointmentModel(
                   userName: FirebaseAuth.instance.currentUser!.displayName,
@@ -188,11 +190,24 @@ class AppRouter {
                   review: null,
                   isVisa: paymentSummaryModel.isVisa,
                   totalPrice: paymentSummaryModel.doctor['price'],
+                  doctorImage: paymentSummaryModel.doctor['image'],
+                  patientImage: FirebaseAuth.instance.currentUser!.photoURL,
                 ),
               ),
             child: BookingSuccessScreen(
               paymentSummaryModel: paymentSummaryModel,
             ),
+          ),
+        );
+      case Routes.appointmentsScreen:
+        return PageTransition(
+          type: PageTransitionType.fade,
+          duration: const Duration(milliseconds: 200),
+          alignment: Alignment.center,
+          settings: settings,
+          child: BlocProvider(
+            create: (context) => getIt<AppointmentsCubit>()..getAppointments(),
+            child: const AppointmentsScreen(),
           ),
         );
       default:

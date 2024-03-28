@@ -26,7 +26,9 @@ class ProfileButtonsWidget extends StatelessWidget {
             style: TextStyles.textStyle18,
           ),
           trailing: const Icon(Icons.arrow_forward_ios),
-          onTap: () {},
+          onTap: () {
+            context.pushNamed(Routes.appointmentsScreen);
+          },
         ),
         Padding(
           padding: EdgeInsets.symmetric(horizontal: 16.w),

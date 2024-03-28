@@ -10,6 +10,8 @@ class AppointmentModel {
   final String? review;
   final bool? isVisa;
   final String? totalPrice;
+  final String ? doctorImage;
+  final String ? patientImage;
 
   AppointmentModel({
     this.userName,
@@ -23,6 +25,8 @@ class AppointmentModel {
     this.review,
     this.isVisa,
     this.totalPrice,
+    this.doctorImage,
+    this.patientImage,
   });
 
   factory AppointmentModel.fromJson(Map<String, dynamic> json) {
@@ -38,6 +42,8 @@ class AppointmentModel {
       review: json['review'],
       isVisa: json['isVisa'],
       totalPrice: json['totalPrice'],
+      doctorImage: json['doctorImage'],
+      patientImage: json['patientImage'],
     );
   }
 
@@ -54,6 +60,8 @@ class AppointmentModel {
       'review': review,
       'isVisa': isVisa,
       'totalPrice': totalPrice,
+      'doctorImage': doctorImage,
+      'patientImage': patientImage,
     };
   }
 }

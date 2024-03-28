@@ -80,6 +80,11 @@
   "pleaseSelectTime" : "Please select time",
   "youHaveBookingSuccessfully" : "You have booking successfully",
   "weHopeYouToGetBetterSoon" : "We hope you to get better soon",
-  "backToHome" : "Back to Home"
-
+  "backToHome" : "Back to Home",
+  "rating" : "Rating",
+  "current" : "Current",
+  "past" : "Past",
+  "noAppointments" : "No Appointments",
+  "reviewAdded" : "Review added"
+ 
 }

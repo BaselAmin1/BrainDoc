@@ -5,10 +5,8 @@ import 'package:BrainDoc/core/shared/widgets/custom_button.dart';
 import 'package:BrainDoc/core/theming/assets.dart';
 import 'package:BrainDoc/core/theming/colors.dart';
 import 'package:BrainDoc/core/theming/text_styles.dart';
-import 'package:BrainDoc/features/payment/business_logic/appointment_cubit/appointment_cubit.dart';
-import 'package:BrainDoc/features/payment/data/models/appointment_model.dart';
+import 'package:BrainDoc/features/payment/business_logic/confirm_booking_cubit/confirm_booking_cubit.dart';
 import 'package:easy_localization/easy_localization.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
@@ -19,10 +17,8 @@ class BookingSuccessScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return BlocConsumer<AppointmentCubit, AppointmentState>(
-      listener: (context, state) {
-    
-      },
+    return BlocConsumer<ConfirmBookingCubit, ConfirmBookingState>(
+      listener: (context, state) {},
       builder: (context, state) {
         return Scaffold(
           backgroundColor: AppColors.primaryColor,
@@ -61,7 +57,7 @@ class BookingSuccessScreen extends StatelessWidget {
                           textAlign: TextAlign.center,
                         ),
                         const Spacer(),
-                        state is AppointmentLoaded
+                        state is ConfirmAppointmentLoaded
                             ? CustomButton(
                                 text: 'backToHome'.tr(),
                                 onPressed: () {
