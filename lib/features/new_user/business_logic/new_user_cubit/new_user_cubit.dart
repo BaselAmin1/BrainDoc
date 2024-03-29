@@ -1,6 +1,3 @@
-import 'package:BrainDoc/core/cache_helper/cache_helper.dart';
-import 'package:BrainDoc/core/cache_helper/cache_values.dart';
-import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/features/new_user/data/models/save_new_user_data_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -16,7 +13,7 @@ class NewUserCubit extends Cubit<NewUserState> {
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
-  var uid = getIt<CacheHelper>().getData(key: CacheKeys.uid);
+
   final List<String> genderItems = [
     'male'.tr(),
     'female'.tr(),
@@ -29,8 +26,10 @@ class NewUserCubit extends Cubit<NewUserState> {
       await FirebaseAuth.instance.currentUser!
           .updateDisplayName(fullNameController.text);
 
-
-      await firestore.collection('users').doc(uid).update(
+      await firestore
+          .collection('users')
+          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .update(
             SaveNewUserDataModel(
               fullName: fullNameController.text,
               email: emailController.text,
@@ -41,7 +40,6 @@ class NewUserCubit extends Cubit<NewUserState> {
           );
       emit(UpdateNewUserDataSuccess());
     } catch (error) {
-      print(error.toString());
       emit(UpdateNewUserDataFailed(errorMsg: error.toString()));
     }
   }

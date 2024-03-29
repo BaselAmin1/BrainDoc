@@ -24,7 +24,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
   Reference ref = FirebaseStorage.instance.ref();
-  var uid = getIt<CacheHelper>().getData(key: CacheKeys.uid);
+
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
   final List<String> genderItems = [
@@ -52,7 +52,7 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future getUserProfileData() async {
     try {
       DocumentSnapshot snapshot =
-          await firestore.collection('users').doc(uid).get();
+          await firestore.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get();
 
       if (snapshot.exists) {
         emit(ProfileLoaded(
@@ -62,7 +62,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         throw Exception('User profile not found');
       }
     } catch (e) {
-      print('Error fetching user profile data: $e');
+      
       emit(ProfileError(e.toString()));
     }
   }
@@ -70,16 +70,16 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future updateUserProfile(Map<String, dynamic> newData) async {
     try {
       emit(UpdateUserLoadingState());
-      print(uid);
+      
 
       await firestore
           .collection('users')
-          .doc(uid)
+          .doc(FirebaseAuth.instance.currentUser!.uid)
           .update(newData); // Use update method instead of set with merge
 
       emit(UpdateUserSuccessState());
     } catch (e) {
-      print('Error updating user profile: $e');
+      
       emit(UpdateUserErrorState(e.toString()));
     }
   }
@@ -102,7 +102,7 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       if (snapshot.state == TaskState.success) {
         _imageUrl = await snapshot.ref.getDownloadURL();
-        print('Image uploaded url: $_imageUrl');
+        
         updateUserProfile({
           'image': _imageUrl,
         });
@@ -113,7 +113,7 @@ class ProfileCubit extends Cubit<ProfileState> {
         throw Exception('Failed to upload image');
       }
     } catch (e) {
-      print('Error uploading image: $e');
+      
       emit(UploadImageErrorState(e.toString()));
     }
   }

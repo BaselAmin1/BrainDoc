@@ -22,13 +22,13 @@ class ConfirmBookingCubit extends Cubit<ConfirmBookingState> {
         .doc(auth.currentUser!.uid);
     String currentDate = appointmentModel.date!;
     String currentTime = appointmentModel.time!;
-    print("time");
-    print(currentTime);
-    print('date');
-    print(currentDate);
-    print("after");
+    
+    
+    
+    
+    
     currentDate = parseDateString(currentDate);
-    print(currentDate);
+    
 
     TimeBokked timeBokked = TimeBokked(time: currentTime);
 
@@ -45,10 +45,10 @@ class ConfirmBookingCubit extends Cubit<ConfirmBookingState> {
           if (date['weekDay'] == "Friday") {
             // Update the 'timeBokked' list for the matching date
             date['dateTimes'].forEach((dateTime) {
-              print(dateTime['time'] == currentTime);
+              
               if (dateTime['time'] == currentTime) {
-                print(dateTime['timeBooked']);
-                print("timeBokked");
+                
+                
                 dateTime['timeBooked'].add(currentDate);
               }
             });
@@ -56,8 +56,8 @@ class ConfirmBookingCubit extends Cubit<ConfirmBookingState> {
           return date;
         }).toList();
         for (var element in updatedDatesData) {
-          print(element);
-          print("---");
+          
+          
         }
         await FirebaseFirestore.instance
             .collection('doctors')
@@ -69,25 +69,25 @@ class ConfirmBookingCubit extends Cubit<ConfirmBookingState> {
             docRef.update({
               'list': FieldValue.arrayUnion([appointmentModel.toJson()])
             }).then((_) {
-              print('Data added to the list successfully!');
+              
               emit(ConfirmAppointmentLoaded());
             }).catchError((error) {
-              print('Error adding data to the list: $error');
+              
               emit(ConfirmAppointmentError(error.toString()));
             });
           } else {
             docRef.set({
               'list': [appointmentModel.toJson()]
             }).then((_) {
-              print('Document created with data!');
+              
               emit(ConfirmAppointmentLoaded());
             }).catchError((error) {
-              print('Error creating document: $error');
+              
               emit(ConfirmAppointmentError(error.toString()));
             });
           }
         }).catchError((error) {
-          print('Error getting document: $error');
+          
           emit(ConfirmAppointmentError(error.toString()));
         });
       }

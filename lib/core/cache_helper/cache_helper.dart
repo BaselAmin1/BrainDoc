@@ -1,6 +1,4 @@
-import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-import 'cache_values.dart';
 
 class CacheHelper {
   late SharedPreferences sharedPreferences;
@@ -11,20 +9,6 @@ class CacheHelper {
     required String key,
   }) {
     return sharedPreferences.get(key);
-  }
-
-  bool isEnglish() => getCurrentLanguage() == "en";
-
-  void changeLanguageToEn() async {
-    await saveData(key: CacheKeys.currentLanguage, value: "ltr");
-  }
-
-  String getCurrentLanguage() {
-    return getData(key: CacheKeys.currentLanguage) ?? "ltr";
-  }
-
-  void changeLanguageToAr() async {
-    await saveData(key: CacheKeys.currentLanguage, value: "rtl");
   }
 
   Future<bool> saveData({
@@ -48,5 +32,3 @@ class CacheHelper {
     return await sharedPreferences.clear();
   }
 }
-
-

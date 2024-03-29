@@ -33,9 +33,9 @@ class BookingCubit extends Cubit<BookingState> {
               timeBooked: dayTime['timeBooked'],
             ),
           );
-          print('🔥');
-          print(dayTime['timeBooked']);
-          print(dayTime['time']);
+          
+          
+          
         }
         break;
       }
@@ -58,9 +58,9 @@ class BookingCubit extends Cubit<BookingState> {
   bool checkAvailableTime(String time) {
     for (var dayTime in selectedDayTimes) {
       if (dayTime.time == time) {
-        print('🐥');
-        print(selectedDay);
-        print(dayTime.timeBooked);
+        
+        
+        
 
         DateTime dateTime = DateFormat("E, MMM d, yyyy").parse(selectedDay);
 

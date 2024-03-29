@@ -24,7 +24,7 @@ class PushNotificationService {
       await _fcm.subscribeToTopic("users");
       await getIt<CacheHelper>()
           .saveData(key: CacheKeys.deviceToken, value: fCMToken);
-      debugPrint("FCM Token : $fCMToken");
+      
     }
   }
 }

@@ -37,10 +37,10 @@ class VerifyPinFormFieldWidget extends StatelessWidget {
         onCompleted: (submitedCode) {
           context.read<PhoneAuthCubit>().otpCode = submitedCode;
 
-          print("Completed");
+          
         },
         onChanged: (value) {
-          print(value);
+          
         },
       ),
     );

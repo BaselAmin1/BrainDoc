@@ -42,7 +42,6 @@ class AppointmentsScreen extends StatelessWidget {
               AppointmentsListViewWidget(isCurrent: true),
               AppointmentsListViewWidget(isCurrent: false),
             ],
-            onChange: (index) => print(index),
           ),
         );
       },

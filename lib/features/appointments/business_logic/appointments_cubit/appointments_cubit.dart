@@ -33,8 +33,8 @@ class AppointmentsCubit extends Cubit<AppointmentsState> {
             currentAppointments.add(appointment);
           }
         }
-        print('pastAppointments: $pastAppointments');
-        print('currentAppointments: $currentAppointments');
+        
+        
         emit(GetAppointmentsLoaded());
       } else {
         throw Exception('Appointments not found');

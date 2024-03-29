@@ -46,8 +46,8 @@ class BookingDaysWidget extends StatelessWidget {
                     doctorDates: doctorDates,
                     dayOfWeek: dayOfWeek,
                   );
-              print('Selected date: $selectedValue');
-              print('Day of the week: $dayOfWeek');
+              
+              
             },
           ),
         ),

@@ -19,9 +19,7 @@ class LocalizationCubit extends Cubit<LocalizationState> {
     var country = localization.locale == const Locale('ar', 'EG') ? 'UK' : 'EG';
 
     await localization.setLocale(Locale(lang, country));
-    lang == 'ar'
-        ? getIt<CacheHelper>().changeLanguageToAr()
-        : getIt<CacheHelper>().changeLanguageToEn();
+    
     Future.delayed(
       const Duration(seconds: 3),
       () {

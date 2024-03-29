@@ -19,14 +19,14 @@ class PaymentScreen extends StatelessWidget {
         child: MyFatoorah(
           afterPaymentBehaviour: AfterPaymentBehaviour.AfterCallbackExecution,
           onResult: (response) {
-            print(response.status);
+            
             if (response.status == PaymentStatus.Success) {
               context.pushReplacementNamed(
                 Routes.bookingSuccessScreen,
                 arguments: paymentSummaryModel,
               );
             } else {
-              print(response.status);
+              
             }
           },
           request: MyfatoorahRequest.test(
