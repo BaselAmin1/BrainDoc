@@ -1,3 +1,4 @@
+import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/features/payment/data/models/appointment_model.dart';
 import 'package:BrainDoc/features/payment/data/models/dates_model.dart';
 import 'package:bloc/bloc.dart';
@@ -10,29 +11,24 @@ part 'confirm_booking_state.dart';
 
 class ConfirmBookingCubit extends Cubit<ConfirmBookingState> {
   ConfirmBookingCubit() : super(ConfirmAppointmentInitial());
-  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseAuth auth = getIt<FirebaseAuth>();
 
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseFirestore firestore = getIt<FirebaseFirestore>();
   Future makeAppointment({
     required AppointmentModel appointmentModel,
   }) async {
     emit(ConfirmAppointmentLoading());
-    DocumentReference docRef = FirebaseFirestore.instance
+    DocumentReference docRef = getIt<FirebaseFirestore>()
         .collection('appointments')
         .doc(auth.currentUser!.uid);
     String currentDate = appointmentModel.date!;
     String currentTime = appointmentModel.time!;
-    
-    
-    
-    
-    
+
     currentDate = parseDateString(currentDate);
-    
 
     TimeBokked timeBokked = TimeBokked(time: currentTime);
 
-    DocumentSnapshot doctorSnapshot = await FirebaseFirestore.instance
+    DocumentSnapshot doctorSnapshot = await getIt<FirebaseFirestore>()
         .collection('doctors')
         .doc(appointmentModel.doctorId)
         .get();
@@ -45,21 +41,15 @@ class ConfirmBookingCubit extends Cubit<ConfirmBookingState> {
           if (date['weekDay'] == "Friday") {
             // Update the 'timeBokked' list for the matching date
             date['dateTimes'].forEach((dateTime) {
-              
               if (dateTime['time'] == currentTime) {
-                
-                
                 dateTime['timeBooked'].add(currentDate);
               }
             });
           }
           return date;
         }).toList();
-        for (var element in updatedDatesData) {
-          
-          
-        }
-        await FirebaseFirestore.instance
+        for (var element in updatedDatesData) {}
+        await getIt<FirebaseFirestore>()
             .collection('doctors')
             .doc(appointmentModel.doctorId)
             .update({'dates': updatedDatesData});
@@ -69,25 +59,20 @@ class ConfirmBookingCubit extends Cubit<ConfirmBookingState> {
             docRef.update({
               'list': FieldValue.arrayUnion([appointmentModel.toJson()])
             }).then((_) {
-              
               emit(ConfirmAppointmentLoaded());
             }).catchError((error) {
-              
               emit(ConfirmAppointmentError(error.toString()));
             });
           } else {
             docRef.set({
               'list': [appointmentModel.toJson()]
             }).then((_) {
-              
               emit(ConfirmAppointmentLoaded());
             }).catchError((error) {
-              
               emit(ConfirmAppointmentError(error.toString()));
             });
           }
         }).catchError((error) {
-          
           emit(ConfirmAppointmentError(error.toString()));
         });
       }

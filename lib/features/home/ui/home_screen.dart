@@ -1,3 +1,5 @@
+import 'package:BrainDoc/core/di.dart';
+
 import 'package:BrainDoc/core/theming/text_styles.dart';
 import 'package:BrainDoc/features/home/business_logic/home_cubit/home_cubit.dart';
 import 'package:BrainDoc/features/home/ui/widgets/doctors_list_wiew_widget.dart';
@@ -32,7 +34,7 @@ class HomeScreen extends StatelessWidget {
                     ListTile(
                       contentPadding: const EdgeInsets.all(0),
                       title: Text(
-                        '${'hello'.tr()} ${FirebaseAuth.instance.currentUser?.displayName?.split(" ")[0]}',
+                        '${'hello'.tr()} ${getIt<FirebaseAuth>().currentUser?.displayName?.split(" ")[0]}',
                         style: TextStyles.textStyle22,
                       ),
                       subtitle: Text(

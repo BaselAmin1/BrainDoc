@@ -34,6 +34,9 @@ class _BannerWidgetState extends State<BannerWidget> {
             ? Column(
                 children: [
                   SizedBox(
+                    height: 8.h,
+                  ),
+                  SizedBox(
                     width: MediaQuery.of(context).size.width,
                     child: CarouselSlider(
                       items: images
@@ -41,11 +44,13 @@ class _BannerWidgetState extends State<BannerWidget> {
                             (item) => Container(
                               margin: EdgeInsets.symmetric(horizontal: 1.w),
                               child: Center(
-                                  child: CachedNetworkImage(
-                                imageUrl: item,
-                                fit: BoxFit.cover,
-                                width: MediaQuery.of(context).size.width,
-                              )),
+                                child: CachedNetworkImage(
+                                  imageUrl: item,
+                                  fit: BoxFit.fill,
+                                  width: MediaQuery.of(context).size.width,
+                                  height: 140.h,
+                                ),
+                              ),
                             ),
                           )
                           .toList(),
@@ -65,16 +70,19 @@ class _BannerWidgetState extends State<BannerWidget> {
                   ),
                 ],
               )
-            : Shimmer.fromColors(
-                baseColor: Colors.grey[300]!,
-                highlightColor: Colors.grey[100]!,
-                child: Container(
-                  margin: EdgeInsets.symmetric(horizontal: 8.w),
-                  height: 120.h,
-                  width: MediaQuery.of(context).size.width,
-                  decoration: BoxDecoration(
-                    color: Colors.grey,
-                    borderRadius: BorderRadius.circular(8),
+            : Padding(
+                padding: EdgeInsets.symmetric(vertical: 8.h),
+                child: Shimmer.fromColors(
+                  baseColor: Colors.grey[300]!,
+                  highlightColor: Colors.grey[100]!,
+                  child: Container(
+                    margin: EdgeInsets.symmetric(horizontal: 8.w),
+                    height: 140.h,
+                    width: MediaQuery.of(context).size.width,
+                    decoration: BoxDecoration(
+                      color: Colors.grey,
+                      borderRadius: BorderRadius.circular(8),
+                    ),
                   ),
                 ),
               );

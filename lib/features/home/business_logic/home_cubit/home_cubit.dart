@@ -1,3 +1,5 @@
+import 'package:BrainDoc/core/di.dart';
+
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:equatable/equatable.dart';
@@ -12,7 +14,7 @@ class HomeCubit extends Cubit<HomeState> {
       emit(const HomeState(status: HomeStatus.loading));
 
       final querySnapshot =
-          await FirebaseFirestore.instance.collection('doctors').get();
+          await getIt<FirebaseFirestore>().collection('doctors').get();
       emit(HomeState(status: HomeStatus.loaded, doctors: querySnapshot.docs));
     } catch (e) {
       emit(const HomeState(status: HomeStatus.error));
@@ -23,7 +25,7 @@ class HomeCubit extends Cubit<HomeState> {
     try {
       emit(const HomeState(status: HomeStatus.loading));
       final querySnapshot =
-          await FirebaseFirestore.instance.collection('banners').get();
+          await getIt<FirebaseFirestore>().collection('banners').get();
       emit(HomeState(status: HomeStatus.loaded, banners: querySnapshot.docs));
     } catch (e) {
       emit(const HomeState(status: HomeStatus.error));

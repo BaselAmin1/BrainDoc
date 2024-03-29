@@ -25,7 +25,7 @@ void main() async {
   await Firebase.initializeApp(
     options: DefaultFirebaseOptions.currentPlatform,
   );
- await PushNotificationService().initializeNotification();
+  await PushNotificationService().initializeNotification();
 
   runApp(
     EasyLocalization(
@@ -68,7 +68,7 @@ class MyApp extends StatelessWidget {
             locale: context.locale,
             theme: lightTheme,
             themeMode: ThemeMode.light,
-            initialRoute: FirebaseAuth.instance.currentUser != null
+            initialRoute: getIt<FirebaseAuth>().currentUser != null
                 ? Routes.mainLayout
                 : Routes.onBoarding,
             onGenerateRoute: appRouter.generateRoute,

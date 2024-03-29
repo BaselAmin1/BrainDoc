@@ -1,3 +1,4 @@
+import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/core/functions/easy_loading.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,8 +11,8 @@ part 'appointments_state.dart';
 
 class AppointmentsCubit extends Cubit<AppointmentsState> {
   AppointmentsCubit() : super(AppointmentsInitial());
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  Reference ref = FirebaseStorage.instance.ref();
+  FirebaseFirestore firestore = getIt<FirebaseFirestore>();
+  Reference ref = getIt<FirebaseStorage>().ref();
   List pastAppointments = [];
   List currentAppointments = [];
   Future getAppointments() async {
@@ -21,7 +22,7 @@ class AppointmentsCubit extends Cubit<AppointmentsState> {
     try {
       DocumentSnapshot snapshot = await firestore
           .collection('appointments')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc(getIt<FirebaseAuth>().currentUser!.uid)
           .get();
 
       if (snapshot.exists) {
@@ -33,8 +34,7 @@ class AppointmentsCubit extends Cubit<AppointmentsState> {
             currentAppointments.add(appointment);
           }
         }
-        
-        
+
         emit(GetAppointmentsLoaded());
       } else {
         throw Exception('Appointments not found');
@@ -58,18 +58,18 @@ class AppointmentsCubit extends Cubit<AppointmentsState> {
           .update({
         'reviews': FieldValue.arrayUnion([
           {
-            'patientId': FirebaseAuth.instance.currentUser!.uid,
+            'patientId': getIt<FirebaseAuth>().currentUser!.uid,
             'patientRating': rating,
             'patientReview': review,
-            'patientName': FirebaseAuth.instance.currentUser!.displayName,
-            'patientImage': FirebaseAuth.instance.currentUser!.photoURL,
+            'patientName': getIt<FirebaseAuth>().currentUser!.displayName,
+            'patientImage': getIt<FirebaseAuth>().currentUser!.photoURL,
             'date': DateFormat('yyyy-M-d').format(DateTime.now()).toString()
           }
         ])
       });
       await firestore
           .collection('appointments')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc(getIt<FirebaseAuth>().currentUser!.uid)
           .update({
         'list': FieldValue.arrayUnion([
           {
@@ -91,7 +91,7 @@ class AppointmentsCubit extends Cubit<AppointmentsState> {
       });
       await firestore
           .collection('appointments')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc(getIt<FirebaseAuth>().currentUser!.uid)
           .update({
         'list': FieldValue.arrayRemove([
           {

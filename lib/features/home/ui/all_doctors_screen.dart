@@ -24,13 +24,15 @@ class _AllDoctorsScreenState extends State<AllDoctorsScreen> {
   }
 
   void filterDoctors(String query) {
-    setState(() {
-      filteredDoctors = widget.doctors
-          .where((doctor) => doctor['name']
-              .toString()
-              .toLowerCase()
-              .contains(query.toLowerCase()))
-          .toList();
+    Future.delayed(const Duration(milliseconds: 300)).then((value) {
+      setState(() {
+        filteredDoctors = widget.doctors
+            .where((doctor) => doctor['name']
+                .toString()
+                .toLowerCase()
+                .contains(query.toLowerCase()))
+            .toList();
+      });
     });
   }
 

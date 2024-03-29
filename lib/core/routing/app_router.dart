@@ -179,8 +179,8 @@ class AppRouter {
             create: (context) => getIt<ConfirmBookingCubit>()
               ..makeAppointment(
                 appointmentModel: AppointmentModel(
-                  userName: FirebaseAuth.instance.currentUser!.displayName,
-                  userId: FirebaseAuth.instance.currentUser!.uid,
+                  userName: getIt<FirebaseAuth>().currentUser!.displayName,
+                  userId: getIt<FirebaseAuth>().currentUser!.uid,
                   doctorName: paymentSummaryModel.doctor['name'],
                   doctorId: paymentSummaryModel.doctor.id,
                   date: paymentSummaryModel.date,
@@ -191,7 +191,7 @@ class AppRouter {
                   isVisa: paymentSummaryModel.isVisa,
                   totalPrice: paymentSummaryModel.doctor['price'],
                   doctorImage: paymentSummaryModel.doctor['image'],
-                  patientImage: FirebaseAuth.instance.currentUser!.photoURL,
+                  patientImage: getIt<FirebaseAuth>().currentUser!.photoURL,
                 ),
               ),
             child: BookingSuccessScreen(

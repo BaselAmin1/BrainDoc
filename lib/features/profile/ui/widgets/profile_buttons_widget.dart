@@ -111,7 +111,7 @@ class ProfileButtonsWidget extends StatelessWidget {
                     actions: [
                       TextButton(
                         onPressed: () {
-                          FirebaseAuth.instance.signOut();
+                          getIt<FirebaseAuth>().signOut();
                           getIt<CacheHelper>().clearAllData();
                           Navigator.pushReplacementNamed(
                             context,

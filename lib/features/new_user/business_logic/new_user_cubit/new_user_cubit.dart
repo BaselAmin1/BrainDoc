@@ -1,3 +1,4 @@
+import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/features/new_user/data/models/save_new_user_data_model.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -10,7 +11,7 @@ part 'new_user_state.dart';
 
 class NewUserCubit extends Cubit<NewUserState> {
   NewUserCubit() : super(NewUserInitial());
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseFirestore firestore = getIt<FirebaseFirestore>();
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
 
@@ -23,12 +24,13 @@ class NewUserCubit extends Cubit<NewUserState> {
 
   Future updateNewUserData() async {
     try {
-      await FirebaseAuth.instance.currentUser!
+      await getIt<FirebaseAuth>()
+          .currentUser!
           .updateDisplayName(fullNameController.text);
 
       await firestore
           .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc(getIt<FirebaseAuth>().currentUser!.uid)
           .update(
             SaveNewUserDataModel(
               fullName: fullNameController.text,

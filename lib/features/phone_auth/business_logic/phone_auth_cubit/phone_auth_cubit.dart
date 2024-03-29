@@ -1,5 +1,3 @@
-import 'package:BrainDoc/core/cache_helper/cache_helper.dart';
-import 'package:BrainDoc/core/cache_helper/cache_values.dart';
 import 'package:BrainDoc/core/di.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
@@ -14,9 +12,9 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
   late String otpCode;
   PhoneAuthCubit() : super(PhoneAuthInitial());
 
-  FirebaseAuth auth = FirebaseAuth.instance;
+  FirebaseAuth auth = getIt<FirebaseAuth>();
 
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
+  FirebaseFirestore firestore = getIt<FirebaseFirestore>();
 
   Future<void> submitPhoneNumber() async {
     emit(Loading());
@@ -31,25 +29,21 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
   }
 
   void verificationCompleted(PhoneAuthCredential credential) async {
-    
     await signIn(credential);
   }
 
   void verificationFailed(FirebaseAuthException error) {
-    
     emit(ErrorOccurred(errorMsg: error.toString()));
   }
 
   void codeSent(String verificationId, int? resendToken) {
     emit(Loading());
-    
+
     this.verificationId = verificationId;
     emit(PhoneNumberSubmitted());
   }
 
-  void codeAutoRetrievalTimeout(String verificationId) {
-    
-  }
+  void codeAutoRetrievalTimeout(String verificationId) {}
 
   Future<void> submitOTP() async {
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
@@ -60,10 +54,9 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
 
   Future<void> signIn(PhoneAuthCredential credential) async {
     try {
-      await FirebaseAuth.instance
+      await getIt<FirebaseAuth>()
           .signInWithCredential(credential)
           .then((value) async {
-    
         checkNewUser();
       });
     } catch (error) {
@@ -90,11 +83,11 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
   }
 
   Future<void> logOut() async {
-    await FirebaseAuth.instance.signOut();
+    await getIt<FirebaseAuth>().signOut();
   }
 
   User getLoggedInUser() {
-    User firebaseUser = FirebaseAuth.instance.currentUser!;
+    User firebaseUser = getIt<FirebaseAuth>().currentUser!;
     return firebaseUser;
   }
 }

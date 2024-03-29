@@ -63,6 +63,7 @@ class DoctorsListViewWidget extends StatelessWidget {
                   )
                 : SizedBox(
                     height: 250.h,
+                    width: MediaQuery.of(context).size.width,
                     child: ListView.builder(
                       scrollDirection: Axis.horizontal,
                       itemCount: 5, // Placeholder for shimmer effect
@@ -71,7 +72,7 @@ class DoctorsListViewWidget extends StatelessWidget {
                           baseColor: Colors.grey[300]!,
                           highlightColor: Colors.grey[100]!,
                           child: Container(
-                            margin: EdgeInsets.symmetric(horizontal: 8.w),
+                            margin: EdgeInsets.only(right: 16.w),
                             width: 160.w,
                             decoration: BoxDecoration(
                               color: Colors.grey,

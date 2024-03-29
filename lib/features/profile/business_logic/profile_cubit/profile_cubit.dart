@@ -1,7 +1,5 @@
 import 'dart:io';
 
-import 'package:BrainDoc/core/cache_helper/cache_helper.dart';
-import 'package:BrainDoc/core/cache_helper/cache_values.dart';
 import 'package:BrainDoc/core/di.dart';
 import 'package:BrainDoc/core/helpers/extensions.dart';
 import 'package:bloc/bloc.dart';
@@ -22,8 +20,8 @@ part 'profile_state.dart';
 class ProfileCubit extends Cubit<ProfileState> {
   ProfileCubit() : super(ProfileInitial());
 
-  FirebaseFirestore firestore = FirebaseFirestore.instance;
-  Reference ref = FirebaseStorage.instance.ref();
+  FirebaseFirestore firestore = getIt<FirebaseFirestore>();
+  Reference ref = getIt<FirebaseStorage>().ref();
 
   final TextEditingController fullNameController = TextEditingController();
   final TextEditingController emailController = TextEditingController();
@@ -51,8 +49,10 @@ class ProfileCubit extends Cubit<ProfileState> {
 
   Future getUserProfileData() async {
     try {
-      DocumentSnapshot snapshot =
-          await firestore.collection('users').doc(FirebaseAuth.instance.currentUser!.uid).get();
+      DocumentSnapshot snapshot = await firestore
+          .collection('users')
+          .doc(getIt<FirebaseAuth>().currentUser!.uid)
+          .get();
 
       if (snapshot.exists) {
         emit(ProfileLoaded(
@@ -62,7 +62,6 @@ class ProfileCubit extends Cubit<ProfileState> {
         throw Exception('User profile not found');
       }
     } catch (e) {
-      
       emit(ProfileError(e.toString()));
     }
   }
@@ -70,16 +69,14 @@ class ProfileCubit extends Cubit<ProfileState> {
   Future updateUserProfile(Map<String, dynamic> newData) async {
     try {
       emit(UpdateUserLoadingState());
-      
 
       await firestore
           .collection('users')
-          .doc(FirebaseAuth.instance.currentUser!.uid)
+          .doc(getIt<FirebaseAuth>().currentUser!.uid)
           .update(newData); // Use update method instead of set with merge
 
       emit(UpdateUserSuccessState());
     } catch (e) {
-      
       emit(UpdateUserErrorState(e.toString()));
     }
   }
@@ -102,18 +99,17 @@ class ProfileCubit extends Cubit<ProfileState> {
 
       if (snapshot.state == TaskState.success) {
         _imageUrl = await snapshot.ref.getDownloadURL();
-        
+
         updateUserProfile({
           'image': _imageUrl,
         });
-        await FirebaseAuth.instance.currentUser!.updatePhotoURL(_imageUrl);
+        await getIt<FirebaseAuth>().currentUser!.updatePhotoURL(_imageUrl);
 
         emit(UploadImageSuccessState());
       } else {
         throw Exception('Failed to upload image');
       }
     } catch (e) {
-      
       emit(UploadImageErrorState(e.toString()));
     }
   }
