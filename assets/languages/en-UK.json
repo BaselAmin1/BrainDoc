@@ -85,6 +85,10 @@
   "current" : "Current",
   "past" : "Past",
   "noAppointments" : "No Appointments",
-  "reviewAdded" : "Review added"
+  "reviewAdded" : "Review added",
+  "addReview" : "Add Review",
+  "enterYourReview" : "Enter your review",
+  "cancel" : "Cancel"
+
  
 }

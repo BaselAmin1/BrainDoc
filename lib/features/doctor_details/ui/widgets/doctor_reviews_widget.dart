@@ -78,7 +78,9 @@ class DoctorReviewsWidget extends StatelessWidget {
                                     style: TextStyles.textStyle16,
                                   ),
                                   RatingBarIndicator(
-                                    rating: rating!,
+                                    rating: double.parse(
+                                        widget.doctor['reviews'][index]
+                                            ['patientRating']),
                                     itemBuilder: (context, index) => const Icon(
                                       Icons.star,
                                       color: Colors.amber,

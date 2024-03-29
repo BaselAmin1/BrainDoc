@@ -1,6 +1,6 @@
 class DayTime {
-  final bool isAvailable;
+  final List timeBooked;
   final String time;
 
-  DayTime({required this.isAvailable, required this.time});
+  DayTime({required this.timeBooked, required this.time});
 }

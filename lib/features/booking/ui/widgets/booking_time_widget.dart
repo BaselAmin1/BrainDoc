@@ -31,11 +31,10 @@ class BookingTimeWidget extends StatelessWidget {
                 itemBuilder: (context, index) {
                   return InkWell(
                     onTap: () {
-                      context
-                                  .read<BookingCubit>()
-                                  .selectedDayTimes[index]
-                                  .isAvailable ==
-                              false
+                      !context.read<BookingCubit>().checkAvailableTime(context
+                              .read<BookingCubit>()
+                              .selectedDayTimes[index]
+                              .time)
                           ? null
                           : context
                               .read<BookingCubit>()
@@ -45,7 +44,7 @@ class BookingTimeWidget extends StatelessWidget {
                       alignment: Alignment.center,
                       children: [
                         Container(
-                          width: 60.w,
+                          width: 90.w,
                           padding: EdgeInsets.symmetric(horizontal: 16.w),
                           margin: EdgeInsets.symmetric(
                               vertical: 8.h, horizontal: 8.w),
@@ -55,11 +54,12 @@ class BookingTimeWidget extends StatelessWidget {
                                         .selectedTimeIndex ==
                                     index
                                 ? AppColors.primaryColor
-                                : context
+                                : !context
+                                        .read<BookingCubit>()
+                                        .checkAvailableTime(context
                                             .read<BookingCubit>()
                                             .selectedDayTimes[index]
-                                            .isAvailable ==
-                                        false
+                                            .time)
                                     ? Colors.grey[50]
                                     : Colors.grey[200],
                             borderRadius: BorderRadius.circular(8.r),
@@ -76,29 +76,35 @@ class BookingTimeWidget extends StatelessWidget {
                                             .selectedTimeIndex ==
                                         index
                                     ? Colors.white
-                                    : context
-                                                .read<BookingCubit>()
-                                                .selectedDayTimes[index]
-                                                .isAvailable ==
-                                            false
+                                    : !context
+                                            .read<BookingCubit>()
+                                            .checkAvailableTime(
+                                              context
+                                                  .read<BookingCubit>()
+                                                  .selectedDayTimes[index]
+                                                  .time,
+                                            )
                                         ? Colors.grey[600]
                                         : Colors.black,
                               ),
                             ),
                           ),
                         ),
-                        context
-                                    .read<BookingCubit>()
-                                    .selectedDayTimes[index]
-                                    .isAvailable ==
-                                false
+                        !context.read<BookingCubit>().checkAvailableTime(context
+                                .read<BookingCubit>()
+                                .selectedDayTimes[index]
+                                .time)
                             ? Align(
                                 alignment: Alignment.center,
                                 child: Center(
-                                  child: Text('x',
-                                      style: TextStyles.textStyle30.copyWith(
-                                          color: Colors.red,
-                                          fontWeight: FontWeight.w300)),
+                                  child: Text(
+                                    'x',
+                                    style: TextStyles.textStyle30.copyWith(
+                                      color: Colors.red,
+                                      fontSize: 34,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  ),
                                 ),
                               )
                             : const SizedBox(),

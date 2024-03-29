@@ -8,6 +8,7 @@ part 'booking_state.dart';
 
 class BookingCubit extends Cubit<BookingState> {
   BookingCubit() : super(const BookingState(status: BookingStatus.initial));
+
   List<DayTime> selectedDayTimes = [];
   int selectedTimeIndex = -1;
   TextEditingController notesController = TextEditingController();
@@ -24,14 +25,17 @@ class BookingCubit extends Cubit<BookingState> {
     selectedDayTimes = [];
     for (var date in doctorDates!) {
       if (date['weekDay'] == dayOfWeek) {
-        var dayTimes = date['dayTimes'];
+        var dayTimes = date['dateTimes'].toList();
         for (var dayTime in dayTimes) {
           selectedDayTimes.add(
             DayTime(
-              isAvailable: dayTime['isAvailable'],
               time: dayTime['time'],
+              timeBooked: dayTime['timeBooked'],
             ),
           );
+          print('🔥');
+          print(dayTime['timeBooked']);
+          print(dayTime['time']);
         }
         break;
       }
@@ -49,5 +53,25 @@ class BookingCubit extends Cubit<BookingState> {
     this.selectedTimeIndex = selectedTimeIndex;
     emit(state.copyWith(
         selectedTimeIndex: selectedTimeIndex, status: BookingStatus.loaded));
+  }
+
+  bool checkAvailableTime(String time) {
+    for (var dayTime in selectedDayTimes) {
+      if (dayTime.time == time) {
+        print('🐥');
+        print(selectedDay);
+        print(dayTime.timeBooked);
+
+        DateTime dateTime = DateFormat("E, MMM d, yyyy").parse(selectedDay);
+
+        String formattedDate = DateFormat("yyyy-M-d").format(dateTime);
+        if (dayTime.timeBooked.contains(formattedDate)) {
+          return false;
+        } else {
+          return true;
+        }
+      }
+    }
+    return false;
   }
 }
