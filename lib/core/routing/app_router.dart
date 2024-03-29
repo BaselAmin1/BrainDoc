@@ -5,6 +5,7 @@ import 'package:BrainDoc/features/appointments/ui/appointments_screen.dart';
 import 'package:BrainDoc/features/booking/business_logic/booking_cubit/booking_cubit.dart';
 import 'package:BrainDoc/features/booking/ui/booking_screen.dart';
 import 'package:BrainDoc/features/doctor_details/ui/doctor_details_screen.dart';
+import 'package:BrainDoc/features/fast_questions/fast_question_screen.dart';
 import 'package:BrainDoc/features/home/business_logic/home_cubit/home_cubit.dart';
 import 'package:BrainDoc/features/home/ui/all_doctors_screen.dart';
 import 'package:BrainDoc/features/home/ui/home_screen.dart';
@@ -24,6 +25,7 @@ import 'package:BrainDoc/features/phone_auth/ui/otp_screen.dart';
 import 'package:BrainDoc/features/profile/business_logic/profile_cubit/profile_cubit.dart';
 import 'package:BrainDoc/features/profile/ui/edit_profile_screen.dart';
 import 'package:BrainDoc/features/profile/ui/profile_screen.dart';
+import 'package:BrainDoc/features/scan_mri/ui/scan_mri_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -210,6 +212,24 @@ class AppRouter {
             child: const AppointmentsScreen(),
           ),
         );
+
+      case Routes.fastQuestionsScreen:
+        return PageTransition(
+          type: PageTransitionType.fade,
+          duration: const Duration(milliseconds: 200),
+          alignment: Alignment.center,
+          settings: settings,
+          child:  FastQuestionsScreen(),
+        );
+            case Routes.scanMRIScreen:
+        return PageTransition(
+          type: PageTransitionType.fade,
+          duration: const Duration(milliseconds: 200),
+          alignment: Alignment.center,
+          settings: settings,
+          child:  ScanMRIScreen(),
+        );
+      
       default:
         return PageTransition(
           child: Scaffold(

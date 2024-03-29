@@ -12,4 +12,6 @@ class Routes {
   static const String paymentScreen = '/paymentScreen';
   static const String bookingSuccessScreen = '/bookingSuccessScreen';
   static const String appointmentsScreen = '/appointmentsScreen';
+  static const String fastQuestionsScreen = '/fastQuestionsScreen';
+    static const String scanMRIScreen = '/scanMRIScreen';
 }
