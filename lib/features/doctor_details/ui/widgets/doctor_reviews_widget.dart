@@ -60,7 +60,10 @@ class DoctorReviewsWidget extends StatelessWidget {
                                 ),
                                 child: CachedNetworkImage(
                                   imageUrl: widget.doctor['reviews'][index]
-                                      ['patientImage'],
+                                          ['patientImage'] ??
+                                      '',
+                                  errorWidget: (context, url, error) =>
+                                      const Icon(Icons.error),
                                   fit: BoxFit.cover,
                                   width: 50.w,
                                   height: 50.w,
@@ -91,8 +94,9 @@ class DoctorReviewsWidget extends StatelessWidget {
                                   ),
                                   Text(
                                     ' ' +
-                                        widget.doctor['reviews'][index]
-                                            ['patientReview'],
+                                            widget.doctor['reviews'][index]
+                                                ['patientReview'] ??
+                                        '',
                                     style: TextStyles.textStyle14,
                                   ),
                                 ],

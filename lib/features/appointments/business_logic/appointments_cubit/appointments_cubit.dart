@@ -60,7 +60,7 @@ class AppointmentsCubit extends Cubit<AppointmentsState> {
           {
             'patientId': getIt<FirebaseAuth>().currentUser!.uid,
             'patientRating': rating,
-            'patientReview': review,
+            'patientReview': review ?? '',
             'patientName': getIt<FirebaseAuth>().currentUser!.displayName,
             'patientImage': getIt<FirebaseAuth>().currentUser!.photoURL,
             'date': DateFormat('yyyy-M-d').format(DateTime.now()).toString()
@@ -75,7 +75,7 @@ class AppointmentsCubit extends Cubit<AppointmentsState> {
           {
             'doctorId': appointment['doctorId'],
             'rating': rating,
-            'review': review,
+            'review': review ?? '',
             'date': appointment['date'],
             'time': appointment['time'],
             'notes': appointment['notes'],
