@@ -23,6 +23,7 @@ class NewUserCubit extends Cubit<NewUserState> {
   DateTime? birthDate;
 
   Future updateNewUserData() async {
+    emit(UpdateNewUserDataLoading());
     try {
       await getIt<FirebaseAuth>()
           .currentUser!

@@ -1,4 +1,5 @@
 import 'package:BrainDoc/core/di.dart';
+import 'package:BrainDoc/core/functions/easy_loading.dart';
 import 'package:bloc/bloc.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
@@ -46,6 +47,7 @@ class PhoneAuthCubit extends Cubit<PhoneAuthState> {
   void codeAutoRetrievalTimeout(String verificationId) {}
 
   Future<void> submitOTP() async {
+    showLoading();
     PhoneAuthCredential credential = PhoneAuthProvider.credential(
         verificationId: verificationId, smsCode: otpCode);
 
