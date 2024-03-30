@@ -14,11 +14,9 @@ class HomeScanAndFreqWidget extends StatelessWidget {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        GestureDetector(
-          onTap: () {
-            context.pushNamed(Routes.fastQuestionsScreen);
-          },
-          child: Expanded(
+        Expanded(
+          child: GestureDetector(
+            onTap: () => context.pushNamed(Routes.fastQuestionsScreen),
             child: Container(
               margin: EdgeInsets.only(top: 8.h),
               padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),
@@ -61,9 +59,9 @@ class HomeScanAndFreqWidget extends StatelessWidget {
         SizedBox(
           width: 8.w,
         ),
-        GestureDetector(
-          onTap: () => context.pushNamed(Routes.scanMRIScreen),
-          child: Expanded(
+        Expanded(
+          child: GestureDetector(
+            onTap: () => context.pushNamed(Routes.scanMRIScreen),
             child: Container(
               margin: EdgeInsets.only(top: 8.h),
               padding: EdgeInsets.symmetric(horizontal: 8.w, vertical: 8.h),

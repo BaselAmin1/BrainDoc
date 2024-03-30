@@ -56,7 +56,9 @@ class ConfirmBookingCubit extends Cubit<ConfirmBookingState> {
 
         await docRef.get().then((docSnapshot) {
           if (docSnapshot.exists) {
-            docRef.update({'list': appointmentModel.toJson()}).then((_) {
+            docRef.update({
+              'list': FieldValue.arrayUnion([appointmentModel.toJson()])
+            }).then((_) {
               emit(ConfirmAppointmentLoaded());
             }).catchError((error) {
               emit(ConfirmAppointmentError(error.toString()));
