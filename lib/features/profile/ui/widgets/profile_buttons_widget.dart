@@ -9,6 +9,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 class ProfileButtonsWidget extends StatelessWidget {
@@ -71,15 +72,17 @@ class ProfileButtonsWidget extends StatelessWidget {
                       ListTile(
                         title: const Text('العربيه'),
                         onTap: () {
-                          context.setLocale(const Locale('ar', 'EG'));
-                          Navigator.pop(context);
+                          context
+                              .setLocale(const Locale('ar', 'EG'))
+                              .then((value) => Phoenix.rebirth(context));
                         },
                       ),
                       ListTile(
                         title: const Text('English'),
                         onTap: () {
-                          context.setLocale(const Locale('en', 'UK'));
-                          Navigator.pop(context);
+                          context
+                              .setLocale(const Locale('en', 'UK'))
+                              .then((value) => Phoenix.rebirth(context));
                         },
                       ),
                     ],

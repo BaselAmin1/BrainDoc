@@ -17,57 +17,50 @@ class MainLayoutScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     var cubit = MainLayoutCubit.get(context);
 
-    return BlocConsumer<LocalizationCubit, LocalizationState>(
-      listener: (context, state) {
-        // TODO: implement listener
-      },
+    return BlocConsumer<MainLayoutCubit, MainLayoutState>(
+      listener: (context, state) {},
       builder: (context, state) {
-        return BlocConsumer<MainLayoutCubit, MainLayoutState>(
-          listener: (context, state) {},
-          builder: (context, state) {
-            List<BottomNavigationBarItem> bottomItems = [
-              BottomNavigationBarItem(
-                label: 'home'.tr(),
-                icon: const Icon(
-                  FontAwesomeIcons.houseMedical,
+        List<BottomNavigationBarItem> bottomItems = [
+          BottomNavigationBarItem(
+            label: 'home'.tr(),
+            icon: const Icon(
+              FontAwesomeIcons.houseMedical,
+            ),
+          ),
+          BottomNavigationBarItem(
+            label: 'profile'.tr(),
+            icon: const Icon(
+              FontAwesomeIcons.solidUser,
+            ),
+          ),
+        ];
+    
+        return state is LocalizationLoading
+            ? const Scaffold(
+                body: Center(
+                  child: CircularProgressIndicator(),
                 ),
-              ),
-              BottomNavigationBarItem(
-                label: 'profile'.tr(),
-                icon: const Icon(
-                  FontAwesomeIcons.solidUser,
+              )
+            : Scaffold(
+                key: _key,
+                body: PopScope(
+                  canPop: false,
+                  child: AppRouter()
+                      .screens[cubit.mainLayoutInitialScreenIndex],
                 ),
-              ),
-            ];
-
-            return state is LocalizationLoading
-                ? const Scaffold(
-                    body: Center(
-                      child: CircularProgressIndicator(),
-                    ),
-                  )
-                : Scaffold(
-                    key: _key,
-                    body: PopScope(
-                      canPop: false,
-                      child: AppRouter()
-                          .screens[cubit.mainLayoutInitialScreenIndex],
-                    ),
-                    bottomNavigationBar: BottomNavigationBar(
-                      type: BottomNavigationBarType.fixed,
-                      currentIndex: cubit.mainLayoutInitialScreenIndex,
-                      onTap: (index) {
-                        cubit.changeBottomNavBar(
-                          index,
-                        );
-                      },
-                      showSelectedLabels: true,
-                      showUnselectedLabels: true,
-                      items: bottomItems,
-                    ),
-                  );
-          },
-        );
+                bottomNavigationBar: BottomNavigationBar(
+                  type: BottomNavigationBarType.fixed,
+                  currentIndex: cubit.mainLayoutInitialScreenIndex,
+                  onTap: (index) {
+                    cubit.changeBottomNavBar(
+                      index,
+                    );
+                  },
+                  showSelectedLabels: true,
+                  showUnselectedLabels: true,
+                  items: bottomItems,
+                ),
+              );
       },
     );
   }

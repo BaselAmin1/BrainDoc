@@ -13,6 +13,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_easyloading/flutter_easyloading.dart';
+import 'package:flutter_phoenix/flutter_phoenix.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
 void main() async {
@@ -37,17 +38,19 @@ void main() async {
         Locale('en', 'UK'),
       ],
       path: 'assets/languages',
-      child: MyApp(
-        appRouter: AppRouter(),
+      child: Phoenix(
+        child: BrainDoc(
+          appRouter: AppRouter(),
+        ),
       ),
     ),
   );
 }
 
-class MyApp extends StatelessWidget {
+class BrainDoc extends StatelessWidget {
   final AppRouter appRouter;
 
-  const MyApp({super.key, required this.appRouter});
+  const BrainDoc({super.key, required this.appRouter});
 
   @override
   Widget build(BuildContext context) {
