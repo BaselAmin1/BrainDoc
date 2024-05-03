@@ -19,7 +19,7 @@ class DoctorListViewItemWidget extends StatelessWidget {
         arguments: doctor,
       ),
       child: Container(
-        width: 160.w,
+        width: 190.w,
         margin: EdgeInsets.only(right: 16.w),
         decoration: BoxDecoration(
           borderRadius: BorderRadius.circular(16.r),
@@ -56,7 +56,12 @@ class DoctorListViewItemWidget extends StatelessWidget {
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
-                          Text(doctor['name'], style: TextStyles.textStyle16),
+                          Text(
+                            doctor['name'],
+                            style: TextStyles.textStyle16,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
                           SizedBox(height: 0.h),
                           Text(
                             doctor['address'],

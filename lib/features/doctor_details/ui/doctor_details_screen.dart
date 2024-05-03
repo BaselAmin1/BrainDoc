@@ -54,6 +54,7 @@ class _DoctorDetailsScreenState extends State<DoctorDetailsScreen> {
     super.initState();
   }
 
+
   @override
   void dispose() {
     super.dispose();

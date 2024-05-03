@@ -76,7 +76,7 @@ class _BannerWidgetState extends State<BannerWidget> {
                   baseColor: Colors.grey[300]!,
                   highlightColor: Colors.grey[100]!,
                   child: Container(
-                    margin: EdgeInsets.symmetric(horizontal: 8.w),
+                    // margin: EdgeInsets.symmetric(horizontal: 8.w),
                     height: 140.h,
                     width: MediaQuery.of(context).size.width,
                     decoration: BoxDecoration(
