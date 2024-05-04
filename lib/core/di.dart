@@ -8,6 +8,7 @@ import 'package:BrainDoc/features/new_user/business_logic/new_user_cubit/new_use
 import 'package:BrainDoc/features/payment/business_logic/confirm_booking_cubit/confirm_booking_cubit.dart';
 import 'package:BrainDoc/features/phone_auth/business_logic/phone_auth_cubit/phone_auth_cubit.dart';
 import 'package:BrainDoc/features/profile/business_logic/profile_cubit/profile_cubit.dart';
+import 'package:BrainDoc/features/scan_mri/business_logic/scan%20mri%20cubit/scan_mri_cubit.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -36,4 +37,5 @@ Future<void> setupGetIt() async {
   getIt.registerFactory<BookingCubit>(() => BookingCubit());
   getIt.registerFactory<ConfirmBookingCubit>(() => ConfirmBookingCubit());
   getIt.registerFactory<AppointmentsCubit>(() => AppointmentsCubit());
+  getIt.registerFactory<ScanMriCubit>(() => ScanMriCubit());
 }

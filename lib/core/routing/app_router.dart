@@ -25,6 +25,7 @@ import 'package:BrainDoc/features/phone_auth/ui/otp_screen.dart';
 import 'package:BrainDoc/features/profile/business_logic/profile_cubit/profile_cubit.dart';
 import 'package:BrainDoc/features/profile/ui/edit_profile_screen.dart';
 import 'package:BrainDoc/features/profile/ui/profile_screen.dart';
+import 'package:BrainDoc/features/scan_mri/business_logic/scan%20mri%20cubit/scan_mri_cubit.dart';
 import 'package:BrainDoc/features/scan_mri/ui/scan_mri_screen.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -219,17 +220,20 @@ class AppRouter {
           duration: const Duration(milliseconds: 200),
           alignment: Alignment.center,
           settings: settings,
-          child:  FastQuestionsScreen(),
+          child: FastQuestionsScreen(),
         );
-            case Routes.scanMRIScreen:
+      case Routes.scanMRIScreen:
         return PageTransition(
           type: PageTransitionType.fade,
           duration: const Duration(milliseconds: 200),
           alignment: Alignment.center,
           settings: settings,
-          child:  ScanMRIScreen(),
+          child: BlocProvider(
+            create: (context) => getIt<ScanMriCubit>(),
+            child: const ScanMRIScreen(),
+          ),
         );
-      
+
       default:
         return PageTransition(
           child: Scaffold(

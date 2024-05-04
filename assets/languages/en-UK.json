@@ -110,5 +110,7 @@
   "longTermEffectsOfBrainTumorTreatmentDetails": "The long-term effects of brain tumor treatment depend on the type and location of the tumor and the treatment you received. Common long-term effects of brain tumor treatment include: Fatigue, Headaches, Cognitive problems, Emotional issues, Seizures, Hormonal changes, Hearing loss, Vision problems, Balance problems, Weakness, Numbness, Speech difficulties, Swallowing difficulties, Changes in taste or smell, Dental problems, Sleep problems, Pain, Skin problems, Urinary problems, Bowel problems, Sexual problems, Fertility problems, Second cancers.",
   "supportForIndividualsWithBrainTumors": "Support for individuals with brain tumors",
   "supportForIndividualsWithBrainTumorsDetails": "Living with a brain tumor can be challenging. You may experience a range of emotions, including fear, sadness, anger, and confusion. You may also feel anxious about the future. It's important to remember that it's normal to feel this way. You may find it helpful to talk to a counselor or therapist about your feelings. Support groups can also be a valuable resource for people living with brain tumors. Support groups provide a safe place to share your experiences and connect with others who are facing similar challenges. Your doctor can help you find a support group in your area.",
-  "comingSoon": "Coming Soon"
+  "comingSoon": "Coming Soon",
+  "uploadMRIImageToStartScan": "Upload MRI image to start scan",
+  "uploadImage" : "Upload Image"
 }
