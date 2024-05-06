@@ -76,11 +76,57 @@ class ScanMRIScreen extends StatelessWidget {
                         size: 130.sp,
                       ),
                     state is FinishLoading
-                        ? const Text(
-                            'Scan Completed',
-                            style: TextStyles.textStyle24,
-                          )
+                        ? context.read<ScanMriCubit>().result == 'No Tumor'
+                            ? Text(
+                                'noTumorWarning'.tr(),
+                                style: TextStyles.textStyle22,
+                                textAlign: TextAlign.center,
+                              )
+                            : Text(
+                                'tumorWarning'.tr(),
+                                style: TextStyles.textStyle22,
+                                textAlign: TextAlign.center,
+                              )
                         : const SizedBox(),
+                    SizedBox(height: 16.h),
+                    if (context.read<ScanMriCubit>().result != null)
+                      RichText(
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'Result : ',
+                              style: TextStyles.textStyle22.copyWith(
+                                  color: Colors.black,
+                                  fontWeight: FontWeight.w600),
+                            ),
+                            TextSpan(
+                              text: context.read<ScanMriCubit>().result,
+                              style: TextStyles.textStyle24
+                                  .copyWith(color: Colors.red),
+                            ),
+                          ],
+                        ),
+                      ),
+                    SizedBox(height: 62.h),
+                    if (context.read<ScanMriCubit>().result != null)
+                      RichText(
+                        textAlign: TextAlign.center,
+                        text: TextSpan(
+                          children: [
+                            TextSpan(
+                              text: 'note'.tr(),
+                              style: TextStyles.textStyle16,
+                            ),
+                            TextSpan(
+                              text: 'noteTitle'.tr(),
+                              style: TextStyles.textStyle16.copyWith(
+                                color: Colors.grey,
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
                   ],
                 ),
               ),

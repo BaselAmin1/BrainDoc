@@ -16,7 +16,8 @@ class ScanMriCubit extends Cubit<ScanMriState> {
   bool showLoading = false;
 
   File? pickedImage;
-  // File? image ;
+
+  String? result;
   pickImage(ImageSource source, context) async {
     try {
       final picker = ImagePicker();
@@ -26,10 +27,11 @@ class ScanMriCubit extends Cubit<ScanMriState> {
       // this.image = imageTemp;
       pickedImage = imageTemp;
       showLoading = true;
-      Timer(const Duration(seconds: 3), () {
+      uploadImage(image: pickedImage!, context: context).then((value) {
         showLoading = false;
         emit(FinishLoading());
       });
+
       emit(PickImageSuccessState());
     } catch (e) {
       print("failed to pick image : $e");
@@ -37,7 +39,8 @@ class ScanMriCubit extends Cubit<ScanMriState> {
     }
   }
 
-  uploadImage({required image, context}) async {
+  Future uploadImage(
+      {required File image, required BuildContext context}) async {
     emit(UploadImageLoading());
     try {
       String fileName = image.path.split('/').last;
@@ -45,13 +48,23 @@ class ScanMriCubit extends Cubit<ScanMriState> {
         "image": await MultipartFile.fromFile(image.path, filename: fileName),
       });
 
-      // Response? response =
-      //     await Dio.post(endPoint: EndPoints.saveImage, data: formData);
+      var dio = Dio();
+      // Replace 'your_api_endpoint' with the actual endpoint URL where you want to upload the image
+      String uploadUrl = 'http://127.0.0.1:5000/classify';
+      Response response = await dio.post(uploadUrl, data: formData);
 
-      emit(UploadImageSuccess());
+      if (response.statusCode == 200) {
+        print("Image uploaded successfully${response.data}");
+        result = response.data['class'].toString();
+        emit(UploadImageSuccess());
+      } else {
+        // Handle failure or non-200 responses here
+
+        print("Failed to upload image: ${response.statusCode}");
+        emit(UploadImageError());
+      }
     } catch (e) {
       print("Error while uploading image: $e");
-
       emit(UploadImageError());
     }
   }

@@ -53,10 +53,11 @@ class BookingTimeWidget extends StatelessWidget {
                             alignment: Alignment.center,
                             children: [
                               Container(
-                                width: 90.w,
-                                padding: EdgeInsets.symmetric(horizontal: 16.w),
+                                width: 110.w,
                                 margin: EdgeInsets.symmetric(
-                                    vertical: 8.h, horizontal: 8.w),
+                                  vertical: 8.h,
+                                  horizontal: 8.w,
+                                ),
                                 decoration: BoxDecoration(
                                   color: context
                                               .read<BookingCubit>()
