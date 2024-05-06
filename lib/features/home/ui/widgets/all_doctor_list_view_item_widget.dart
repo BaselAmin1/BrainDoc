@@ -13,7 +13,7 @@ class AllDoctorListViewItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () => context.pushNamed(
         Routes.doctorDetailsScreen,
         arguments: doctor,
@@ -58,7 +58,7 @@ class AllDoctorListViewItemWidget extends StatelessWidget {
                         Text(doctor['price'], style: TextStyles.textStyle14),
                         const Icon(
                           Icons.star,
-                         color: Colors.amber,
+                          color: Colors.amber,
                           size: 20,
                         ),
                         Text(

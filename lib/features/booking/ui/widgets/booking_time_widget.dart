@@ -37,7 +37,7 @@ class BookingTimeWidget extends StatelessWidget {
                       itemCount:
                           context.read<BookingCubit>().selectedDayTimes.length,
                       itemBuilder: (context, index) {
-                        return InkWell(
+                        return GestureDetector(
                           onTap: () {
                             !context.read<BookingCubit>().checkAvailableTime(
                                     context

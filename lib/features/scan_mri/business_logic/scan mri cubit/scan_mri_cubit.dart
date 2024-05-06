@@ -106,7 +106,7 @@ class ScanMriCubit extends Cubit<ScanMriState> {
                     ),
                   ),
                 ),
-                InkWell(
+                GestureDetector(
                   onTap: () {
                     context.pop();
 
@@ -139,7 +139,7 @@ class ScanMriCubit extends Cubit<ScanMriState> {
                     ),
                   ),
                 ),
-                InkWell(
+                GestureDetector(
                   onTap: () {
                     context.pop();
 

@@ -252,8 +252,7 @@ class AppRouter {
   List screens = [
     BlocProvider(
       create: (context) => getIt<HomeCubit>()
-        ..getDoctors()
-        ..getBanners(),
+       ,
       child: const HomeScreen(),
     ),
     BlocProvider(

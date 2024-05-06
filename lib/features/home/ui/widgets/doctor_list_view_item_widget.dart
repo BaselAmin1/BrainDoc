@@ -13,7 +13,7 @@ class DoctorListViewItemWidget extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
+    return GestureDetector(
       onTap: () => context.pushNamed(
         Routes.doctorDetailsScreen,
         arguments: doctor,

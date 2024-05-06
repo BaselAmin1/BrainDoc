@@ -209,7 +209,7 @@ class ProfileCubit extends Cubit<ProfileState> {
                     ),
                   ),
                 ),
-                InkWell(
+                GestureDetector(
                   onTap: () {
                     context.pop();
 
@@ -239,7 +239,7 @@ class ProfileCubit extends Cubit<ProfileState> {
                     ),
                   ),
                 ),
-                InkWell(
+                GestureDetector(
                   onTap: () {
                     context.pop();
 

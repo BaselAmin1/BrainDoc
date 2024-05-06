@@ -1,19 +1,35 @@
 import 'package:BrainDoc/core/di.dart';
-import 'package:BrainDoc/core/shared/widgets/custom_button.dart';
 import 'package:BrainDoc/core/theming/text_styles.dart';
 import 'package:BrainDoc/features/home/business_logic/home_cubit/home_cubit.dart';
 import 'package:BrainDoc/features/home/ui/widgets/doctors_list_wiew_widget.dart';
 import 'package:BrainDoc/features/home/ui/widgets/home_banners_widget.dart';
 import 'package:BrainDoc/features/home/ui/widgets/home_scan_and_freq_widget.dart';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_screenutil/flutter_screenutil.dart';
 
-class HomeScreen extends StatelessWidget {
+class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
+
+  @override
+  State<HomeScreen> createState() => _HomeScreenState();
+}
+
+class _HomeScreenState extends State<HomeScreen> {
+  @override
+  void initState() {
+    getHomeDate();
+    super.initState();
+  }
+
+  Future getHomeDate() async {
+    await Future.wait([
+      context.read<HomeCubit>().getDoctors(),
+      context.read<HomeCubit>().getBanners(),
+    ]);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -96,7 +112,7 @@ class HomeScreen extends StatelessWidget {
                     //     });
                     //   },
                     // ),
-                     ListTile(
+                    ListTile(
                       contentPadding: const EdgeInsets.all(0),
                       title: Text(
                         '${'hello'.tr()} ${getIt<FirebaseAuth>().currentUser?.displayName?.split(" ")[0]}',
